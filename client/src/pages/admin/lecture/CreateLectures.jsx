@@ -40,9 +40,9 @@ if(error){
       </div>      
       <div className='my-6 space-y-2'>
         <h2 className='font-semibold text-xl'>Title</h2>
-        <input onChange={(e)=>setLectureTitle(e.target.value)} className='shadow-md outline-none py-2 px-4 w-[60vw] dark:placeholder:text-gray-300 text-black dark:border rounded-md border-white dark:bg-slate-950 dark:text-white' name='LectureTitle'  type="text" value={lectureTitle} placeholder="Course Name" />
+        <input onChange={(e)=>setLectureTitle(e.target.value)} className='shadow-md outline-none py-2 px-4 w-[60vw] dark:placeholder:text-gray-300 text-black dark:border rounded-md border-white dark:bg-slate-950 dark:text-white' name='LectureTitle'  type="text" value={lectureTitle} placeholder="Lecture Name" />
       </div>
-      <div className='space-x-2'>
+      <div className='sm:space-x-2 space-y-4 sm:space-y-0'>
         <button onClick={()=>navigate(`/admin/course/${courseId}`)} className='bg-white text-black border border-gray-200 px-3 py-2 rounded-md transition-transform transform will-change-transform  hover:scale-105 duration-500'>Back to course</button>
         <button onClick={createLectureHandler} className='bg-black text-white border border-gray-200 px-3 py-2 rounded-md transition-transform transform will-change-transform  hover:scale-105 duration-500'>Create Lecture</button>
       </div>

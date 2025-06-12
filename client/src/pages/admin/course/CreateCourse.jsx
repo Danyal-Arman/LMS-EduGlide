@@ -39,12 +39,12 @@ const CreateCourse = () => {
       {/* Title */}
       <div className='my-6 space-y-2'>
         <h2 className='font-semibold text-xl'>Title</h2>
-        <input onChange={(e)=>setCourseTitle(e.target.value)} className='shadow-md outline-none py-2 px-4 w-[60vw] dark:placeholder:text-gray-200 text-black rounded-md dark:bg-gray-900 border' name='courseTitle' value={courseTitle} type="text" placeholder="Course Name" />
+        <input onChange={(e)=>setCourseTitle(e.target.value)} className='shadow-md outline-none py-2 px-4 w-full sm:w-[60vw] dark:placeholder:text-gray-200 text-black rounded-md dark:bg-gray-900 border' name='courseTitle' value={courseTitle} type="text" placeholder="Course Name" />
       </div>
       {/* Category */}
       <div className='space-y-2'>
         <h2 className='font-semibold text-xl '>Category</h2>
-        <select onChange={(e)=>setCategory(e.target.value)} className='shadow-md py-2 px-2 font-semibold dark:text-gray-200 rounded-md  dark:bg-gray-900 border' value={category}>
+        <select onChange={(e)=>setCategory(e.target.value)} className='shadow-md py-2 px-2 font-semibold dark:text-gray-200 rounded-md w-full sm:w-[60vw] dark:bg-gray-900 border' value={category}>
           <option value="option1">Select a category</option>
           <option value="Web Development">Web Development</option>
           <option value="Java Fullstack Development">Java Fullstack Development</option>
@@ -64,7 +64,7 @@ const CreateCourse = () => {
         </select>
       </div>
       {/* Cancel and Create button */}
-      <div className='flex my-4 gap-2'>
+      <div className='flex flex-wrap my-4 gap-2'>
         <button className='bg-white dark:text-black rounded-md font-semibold px-3 py-1 shadow-md transition-transform transform hover:scale-105 duration-300 will-change-transform'>Cancel</button>
      <button disabled={isLoading} onClick={createCourseHandler} className='bg-black text-white rounded-md font-semibold px-5 py-1 shadow-md transition-transform transform hover:scale-105 duration-300 will-change-transform dark:border dark:border-white'>{isLoading? (<span className='flex'><Loader2 className='animate-spin' />Please wait </span>   ): ('Create')}</button>
       </div>

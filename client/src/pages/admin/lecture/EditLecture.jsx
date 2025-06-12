@@ -135,10 +135,10 @@ const EditLecture = () => {
                 {/* Video */}
                 <div className='flex flex-col my-4 gap-1'>
                     <label className='font-bold ' htmlFor="Title">Video </label>
-                    <input onChange={fileUpdateHandler} className="bg-gray-100 border py-1 px-1 rounded-md w-fit custom-file-input border-white dark:bg-slate-950 dark:text-white" type="file" accept="video/*" ></input>
+                    <input onChange={fileUpdateHandler} className="bg-gray-100 border py-1 px-1 rounded-md  sm:w-fit custom-file-input border-white dark:bg-slate-950 dark:text-white" type="file" accept="video/*" ></input>
                 </div>
                 <div className='my-8 space-y-3'>
-                    <h2 className='font-bold flex items-center gap-4'><Switch checked={isFree} onCheckedChange={setIsFree} />Is this video free?</h2>
+                    <h2 className='font-bold flex flex-wrap items-center gap-4'><Switch checked={isFree} onCheckedChange={setIsFree} />Is this video free?</h2>
                 </div>
                 {mediaProgress && (
                     <div className='my-4'>
