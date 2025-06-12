@@ -5,7 +5,7 @@ const myThemeContext = createContext();
 
 const ThemeProvider = ({ children }) => { 
 
-const [theme, setTheme] = useState(localStorage.getItem("theme")|| "light") //retrieves d
+const [theme, setTheme] = useState(localStorage.getItem("theme")|| "light") //retrieves last savad theme from browser local storage
 
 const myThemeToggle=()=>{
   const currentTheme = theme === "light"? "dark": "light"

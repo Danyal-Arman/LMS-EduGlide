@@ -1,4 +1,3 @@
-import { useSearchCourseQuery } from "@/features/api/courseApi";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
     const [query, setQuery] = useState("")
-       const {data, isLoading} = useSearchCourseQuery(query)
     const navigate = useNavigate()
 
 
@@ -29,7 +27,7 @@ const Hero = () => {
       const timeout = setTimeout(() => {
         setDisplayedText((prev) => prev + fullText[index]);
         setIndex((prev) => prev + 1);
-      }, 40); // speed of typing (ms per character)
+      }, 40); 
 
       return () => clearTimeout(timeout);
     }
@@ -39,7 +37,6 @@ const Hero = () => {
   const afterSpan = displayedText.slice(firstText.length)
 
   
-    if(isLoading) return <div></div>
 
     return (
         <div>
@@ -64,4 +61,3 @@ const Hero = () => {
 }
 
 export default Hero
-// https://cdn.fs.teachablecdn.com/4BBHjeQnGoCUnfGKAAQL

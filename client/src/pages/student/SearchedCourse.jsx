@@ -21,11 +21,11 @@ const SearchedCourse = ({ course }) => {
           <p className="text-sm text-gray-700 dark:text-gray-100">
             Intructor: <span className="font-bold">{course.creator?.username}</span>{" "}
           </p>
-          <Badge className="w-fit mt-2 md:mt-0">Advance</Badge>
+          <Badge className="w-fit mt-2 md:mt-0">{course.courseLevel}</Badge>
         </div>
       </Link>
       <div className="mt-4 md:mt-0 md:text-right w-full md:w-auto">
-        <h1 className="font-bold text-lg md:text-xl">₹499</h1>
+        <h1 className="font-bold text-lg md:text-xl">₹{course.coursePrice}</h1>
       </div>
     </div>
   );

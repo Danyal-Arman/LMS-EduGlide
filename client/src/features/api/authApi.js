@@ -88,5 +88,5 @@ export const {
     useLogOutUserMutation,
 } = userApi 
 
- export default userApi;
+export default userApi;
 //ye jo rtk query mene bnaya h na to abb isko store.js me dalna padega  

@@ -102,8 +102,8 @@ const Dashboard = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-200">Welcome Back, {user.username} 👋</h1>
+          <div className='whitespace-normal break-all'>
+            <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-200 whitespace-normal break-all">Welcome Back, {user.username} 👋</h1>
             <p className="text-gray-500 dark:text-gray-200 mt-1">Track your performance and schedule</p>
           </div>
           

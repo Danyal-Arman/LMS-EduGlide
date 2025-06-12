@@ -16,7 +16,7 @@ const EditLecture = () => {
     const [isFree, setIsFree] = useState(false);
     const [mediaProgress, setMediaProgress] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(0);
-    const [ setBtnDisable] = useState(true);
+    const [btnDisable, setBtnDisable] = useState(false);
     const params = useParams();
     const courseId = params.courseId
     const lectureId = params.lectureId
@@ -29,36 +29,47 @@ const EditLecture = () => {
     const navigate = useNavigate();
     const fileUpdateHandler = async (e) => {
         const file = e.target.files[0]
-        if (file) {
-            const formData = new FormData();
-            formData.append('file', file);
-            setMediaProgress(true);
-            try {
-                const res = await axios.post(`${MEDIA_API}/upload-video`, formData, {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem("token")}`, // Ensure token is stored
-                        'Content-Type': 'multipart/form-data',
-                    },
-                    onUploadProgress: ({ loaded, total }) => {
-                        const progress = Math.round((loaded * 100) / total - 1)
-                        setUploadProgress(progress)
-                    }
-                });
-                if (res.data.success) {
-                    setUploadVideoInfo({ videoURL: res.data.data.url, publicId: res.data.data.public_id })
-                    setBtnDisable(false)
-                    toast.success(res.data.message);
+        if (!file) return;
 
+        const formData = new FormData();
+        formData.append('file', file);
+        setMediaProgress(true);
+
+        try {
+            const res = await axios.post(`${MEDIA_API}/upload-video`, formData, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`, // Ensure token is stored
+                    'Content-Type': 'multipart/form-data',
+                },
+                onUploadProgress: ({ loaded, total }) => {
+                    const progress = Math.round((loaded * 100) / total - 1)
+                    setUploadProgress(progress)
+                    setBtnDisable(true)
                 }
-            } catch (error) {
-                toast.error("Failed to upload Video")
+            });
+            console.log("Upload response:", res.data);
+
+            if (res?.status === 200 && res.data?.success) {
+                setUploadVideoInfo({
+                    videoURL: res.data.data.url,
+                    publicId: res.data.data.public_id
+                })
+                setBtnDisable(false)
+                toast.success("video uploaded successfully");
             }
-            finally {
-                setTimeout(() => {
-                    setMediaProgress(false); // ✅ Hide progress bar **AFTER** 100% is reached
-                }, 1000);
+            else {
+                toast.error("Failed to upload video")
             }
+        } catch (error) {
+            console.error("Upload error:", error.response?.data || error.message || error);
+            toast.error("Server error failed to upload video")
         }
+        finally {
+            setTimeout(() => {
+                setMediaProgress(false); //after 100% hide the progress bar 
+            }, 1000);
+        }
+
     }
     const handleLectureUpdate = async () => {
         await updateLecture({
@@ -105,7 +116,7 @@ const EditLecture = () => {
 
 
     return (
-        <div className='w-full  md:w-[85%] p-10  overflow-hidden space-y-2'>
+        <div className=' p-10  overflow-hidden space-y-2'>
             <div className='flex items-center gap-1 '>
                 <ArrowLeft onClick={() => navigate(`/admin/course/lecture/${courseId}`)} className='hover:pr-2 hover:cursor-pointer w-8 transition-all transform duration-200' />
                 <h1 className='text-xl font-bold'>Update Your Lecture</h1>
@@ -135,7 +146,7 @@ const EditLecture = () => {
                         <p>{uploadProgress}% Uploaded</p>
                     </div>)}
                 <div >
-                    <button onClick={handleLectureUpdate} disabled={isLoading} className='bg-black dark:border dark:border-white dark:bg-green-500 text-white rounded-md px-2 py-1 hover:bg-gray-700'>{isLoading ? (<span className='flex gap-2'><Loader2 className='h-7 w-4 mr-2 animate-spin' />Please Wait</span>) : ("Update Lecture")}</button>
+                    <button onClick={handleLectureUpdate} disabled={isLoading || btnDisable} className='bg-black dark:border dark:border-white dark:bg-green-500 text-white rounded-md px-2 py-1 hover:bg-gray-700'>{isLoading ? (<span className='flex gap-2'><Loader2 className='h-7 w-4 mr-2 animate-spin' />Please Wait</span>) : ("Update Lecture")}</button>
                 </div>
             </div>
         </div>

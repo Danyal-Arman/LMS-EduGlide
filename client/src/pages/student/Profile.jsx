@@ -105,11 +105,11 @@ function Profile() {
 
     }
     const user = data && data.user;
-    console.log(user)
+    console.log("this is user",user)
 
     return (
         <div className="max-w-7xl min-h-screen mx-auto px-4 sm:px-6 gap-10 ">
-            <div className="my-6 flex justify-between lg:sticky lg:top-24    ">
+            <div className="my-6 flex flex-wrap justify-between lg:sticky lg:top-24    ">
                 <h1 className='text-4xl font-semibold '>Profile</h1>
                 <div className='space-x-2'>
                     {!isEditing && <button onClick={() => setIsEditing(true)} className={`text-xl font-semibold bg-green-600 hover:bg-green-700 text-white px-5 py-1 rounded-md transition-all duration-300`}>Edit</button>}
@@ -127,7 +127,7 @@ function Profile() {
                         <div className='flex flex-col items-center space-y-2 '>
                             <div className='relative'>
                                 <Avatar  className="hover:cursor-pointer ">
-                                    <AvatarImage src={user?.photo || "https://github.com/shadcn.png"}   className='h-24 rounded-full object-cover w-24' />
+                                    <AvatarImage src={user?.photo || "https://github.com/shadcn.png"}   className='h-24 rounded-full object-cover w-24'  alt="Avatar"/>
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
                                 <input accept='image/*' ref={fileReference} type="file" className='hidden' onChange={handleProfilePhoto} />
@@ -138,11 +138,11 @@ function Profile() {
                         <div className=" space-y-4 mt-10 relative">
                             <div className='flex items-center '>
                                 <User className="h-5 w-5  mr-3" />
-                                <input onChange={handleChange} className='dark:text-white  focus:outline-none dark:bg-gray-900 w-auto sm:w-96' type='text' name='username' value={profile.username} readOnly={!isEditing} autoComplete='off' />
+                                <input onChange={handleChange} className='dark:text-white  focus:outline-none dark:bg-gray-900 w-full md:w-64 ' type='text' name='username' value={profile.username} readOnly={!isEditing} autoComplete='off' />
                             </div>
                             <div className="flex items-center text-White">
                                 <Mail className="h-5 w-5 mr-3 " />
-                                <input onChange={handleChange} className='dark:text-white focus:outline-none dark:bg-gray-900 w-96' type="text" name='email' value={profile?.email || ''} readOnly={!isEditing} autoComplete='off' />
+                                <input onChange={handleChange} className='dark:text-white focus:outline-none dark:bg-gray-900 w-full md:w-96' type="text" name='email' value={profile?.email || ''} readOnly={!isEditing} autoComplete='off' />
                             </div>
                             {/* <div className="flex items-center text-White">
                                 <Phone className="h-5 w-5 mr-3" />
@@ -154,11 +154,12 @@ function Profile() {
                             </div> */}
                             <div className="flex items-center text-White">
                                 <GraduationCap className="h-6 w-6 mr-3" />
-                                <select onChange={handleChange} disabled={!isEditing} value={profile.role} className='dark:text-white  dark:bg-gray-900 md:w-20 w-auto  appearance-none'  name="role" id="">
+                                <select onChange={handleChange} disabled={!isEditing} value={profile.role} className='dark:text-white  dark:bg-gray-900 md:w-40 w-full  appearance-none'  name="role" id="">
                                     <option value="student">STUDENT</option>
                                     <option value="instructor">INSTRUCTOR</option>
                                 </select>
                             </div>
+                                
                         </div>
                     </div>
 
@@ -169,7 +170,7 @@ function Profile() {
                 {/*Courses */}
                 <div className=' lg:col-span-2 my-4 lg:my-0 lg:mx-4 space-y-4 rounded-lg' >
                     <h1   className='text-3xl font-semibold text-center '>Enrolled Courses</h1>
-                    <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2  place-items-center gap-10 sm:gap-12  mx-5 lg:mx-16 pt-2 pb-3  pr-2  '>
+                    <div className='grid grid-cols-1 sm:grid-cols-2   place-items-center gap-10 sm:gap-12  mx-5 lg:mx-16 pt-2 pb-3  pr-2  '>
                         {user?.enrolledCourses.length === 0 ? "You are not enrolled in any courses yet." : (user?.enrolledCourses.map((course) => <ContinueCourse course={course} key={course._id} />))}
                     </div>
                 </div>

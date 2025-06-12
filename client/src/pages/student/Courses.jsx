@@ -31,7 +31,7 @@ const Courses = () => {
    
   console.log("he he",courseWithAverageRatings) 
   
-  if (isLoading) {
+  if (isLoading || !data) {
     return (
       <div className="min-h-[81vh] max-w-7xl  mx-auto px-6 py-10">
         <h2 className="text-center font-bold text-3xl mb-8 whitespace-normal break-all">Courses</h2>

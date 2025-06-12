@@ -25,7 +25,7 @@ ConnectDB()
 
 // Allow frontend (5173) to access backend (3000)
 app.use(cors({
-    origin: "http://localhost:5174", 
+    origin: "http://localhost:5173", 
     credentials:true 
 }))
 
@@ -41,4 +41,4 @@ const port =  3000;
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
-});   
+});     

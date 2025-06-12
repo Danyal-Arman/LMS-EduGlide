@@ -96,7 +96,8 @@ if(logOutError){
                 <div >
                   <Link className="block  hover:bg-gray-200 dark:hover:bg-gray-800 px-4 py-2 hover:px-6    transition-all duration-500 " to="/">Home</Link>
                   <Link  className="block hover:bg-gray-200 dark:hover:bg-gray-800 px-4 py-2  hover:px-6   transition-all duration-500 " to="/profile">Profile</Link>
-                  <Link className="block hover:bg-gray-200 dark:hover:bg-gray-800 px-4 py-2  hover:px-6   transition-all duration-500  " to="/my-learning">My Learning</Link>
+                  <Link className="block hover:bg-gray-200 dark:hover:bg-gray-800 px-4 py-2  hover:px-6   transition-all duration-500  " to="/my-learning">My Learning</Link>         
+                  {data?.user?.role === "student" && <Link className="block hover:bg-gray-200 dark:hover:bg-gray-800 px-4 py-2  hover:px-6   transition-all duration-500  " to="/instructor">Be an Instructor</Link>}         
                   {data?.user?.role === "instructor" && <Link className="block hover:bg-gray-200 dark:hover:bg-gray-800 px-4 py-2 hover:px-6   transition-all duration-500 " to="/admin/dashboard">Dashboard</Link>}
                   <button onClick={logoutHandler} className="flex justify-start dark:hover:bg-gray-800 hover:bg-gray-200 text-red-600 dark:text-red-400 w-full  px-4 py-2 hover:px-6   transition-all duration-500  " >Log out</button>
                 </div>

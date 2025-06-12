@@ -19,7 +19,7 @@ import CourseProgress from './pages/student/courseProgress'
 import SearchPage from './pages/student/SearchPage'
 import { AdminAcess, LoggedInUser, ProtectedRoute } from './components/ProtectedRoutes'
 import SecurePurchasedCourse from './components/SecurePurchasedCourse'
-import Footer from './components/Footer'
+import BecomeInstructor from './pages/admin/BecomeInstructor'
 
 
 function App() {
@@ -60,6 +60,10 @@ function App() {
         {
           path: 'profile',
           element: <ProtectedRoute><Profile /></ProtectedRoute>
+        },
+        {
+          path: 'instructor',
+          element: <ProtectedRoute><BecomeInstructor/></ProtectedRoute>
         },
         {
           path: 'search-page',

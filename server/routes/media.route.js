@@ -17,7 +17,8 @@ router.post("/upload-video", upload.single('file'), async(req, res) => {
         })
     } catch (error) {
         console.log(error),
-        res.status(500).json({ message: "Error uploading File" });
+
+        res.status(500).json({success:false, message: "Error uploading File" });
     }
 })  
 export default router; 

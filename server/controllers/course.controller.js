@@ -41,13 +41,14 @@ export const searchCourse = async (req, res) => {
             ];
         }
         if (categories) {
-             filterCriteria.category = { 
-                $regex: `^${categories.trim()}$`,
-                $options: "i" 
+            filterCriteria.category = {
+                $regex: categories.trim(),
+                $options: "i"
             }
 
+
         }
-       
+
         const sortOption = {}
         if (sortByPrice === "low") {
             sortOption.coursePrice = 1 //sort by price in ascending
@@ -59,16 +60,11 @@ export const searchCourse = async (req, res) => {
         const courses = await courseModel.find(filterCriteria)
             .populate({ path: "creator", select: "username photo" }).sort(sortOption)
 
-        if (!courses || courses.length === 0) {
-            return res.status(400).json({
-                message: "No courses found matching the criteria."
+            return res.status(200).json({
+                success: true,
+                courses: courses || []
             })
-        }
 
-        return res.status(200).json({
-            success: true,
-            courses: courses || []
-        })
 
 
     } catch (error) {
@@ -186,14 +182,14 @@ export const togglePublishCourse = async (req, res) => {
             return res.status(404).json({
                 success: false,
                 message: "Course not found"
-            }) 
+            })
         }
         if (publish === "true" && course.lectures.length === 0) {
             return res.status(400).json({
 
                 success: false,
                 message: "To published course , you must have at add at least one lecture"
-            }) 
+            })
         }
         course.isPublished = publish === "true"; //"true" its string cauz its coming from frontend  
         await course.save();
@@ -276,94 +272,94 @@ export const getPublishedCourse = async (_, res) => {
     }
 }
 
-export const courseRatingAndReview =async (req, res)=>{
+export const courseRatingAndReview = async (req, res) => {
     try {
-        const {courseId} = req.params
-        const userId= req.body.id
-        const {rating, review} = req.body
-   
+        const { courseId } = req.params
+        const userId = req.body.id
+        const { rating, review } = req.body
+
         const course = await courseModel.findById(courseId)
-   
-        
-        
-        if(!course){
+
+
+
+        if (!course) {
             return res.status(400).json({
-                success:false,
-                message:"Failed to find course in courseReview"
-               })
-           }
-           const existingReviewAndRating = course.courseRating.find((data)=> data.user.toString() === userId)
-       
-   if(existingReviewAndRating ){
-      return res.status(400).json({
-       success:false,
-       message:"You have already reviewed this course"
-      })
-   }
-   
-   const newReviewAndRating = {
-       user: userId,
-       course: courseId,
-       rating, 
-       review
-   }
-   course.courseRating.push(newReviewAndRating)
-   await course.save();
-   return res.status(200).json({
-       message:"your review has been recorded ! Thanks for your rating "
-   })
-        
+                success: false,
+                message: "Failed to find course in courseReview"
+            })
+        }
+        const existingReviewAndRating = course.courseRating.find((data) => data.user.toString() === userId)
+
+        if (existingReviewAndRating) {
+            return res.status(400).json({
+                success: false,
+                message: "You have already reviewed this course"
+            })
+        }
+
+        const newReviewAndRating = {
+            user: userId,
+            course: courseId,
+            rating,
+            review
+        }
+        course.courseRating.push(newReviewAndRating)
+        await course.save();
+        return res.status(200).json({
+            message: "your review has been recorded ! Thanks for your rating "
+        })
+
     } catch (error) {
         console.log(error)
     }
-    
+
 }
 
-export const getUserCourseRatingById = async(req, res)=>{
-try {
-    const userId = req.body.id
-    const {courseId}= req.params
+export const getUserCourseRatingById = async (req, res) => {
+    try {
+        const userId = req.body.id
+        const { courseId } = req.params
 
-const course = await courseModel.findById(courseId)
+        const course = await courseModel.findById(courseId)
 
-const userCourseRating = course.courseRating.find((data)=> data.user.toString() === userId)
+        const userCourseRating = course.courseRating.find((data) => data.user.toString() === userId)
 
-if(!userCourseRating){
-    return res.status(400).json({
-        message:"No rating is found "
-    })
+        if (!userCourseRating) {
+            return res.status(400).json({
+                message: "No rating is found "
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            userCourseRating,
+        })
+
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-return res.status(200).json({
-  success: true,
-  userCourseRating,
-})
+export const getCourseAllReviewsAndRatings = async (req, res) => {
+    try {
+        const { courseId } = req.params
 
-} catch (error) {
-    console.log(error)
-}
-}
+        const course = await courseModel.findById(courseId).select("courseRating").populate("courseRating.user", "username photo")
 
-export const getCourseAllReviewsAndRatings = async(req, res)=>{
-try {
-    const {courseId}= req.params
+        if (!course) {
+            return res.status(400).json({
+                success: true,
+                message: "No course found and hence failed to find course review and rating"
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            Ratings: course
+        })
 
-const course = await courseModel.findById(courseId).select("courseRating").populate("courseRating.user", "username photo")
-
-if(!course){
-    return res.status(400).json({
-        success: true,
-        message:"No course found and hence failed to find course review and rating"
-    })
-}
-return res.status(200).json({
-    success:true,
-    Ratings:course
-})
-
-} catch (error) {
-    console.log(error)
-}
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 

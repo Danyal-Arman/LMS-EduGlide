@@ -79,12 +79,12 @@ const CourseProgress = () => {
 
 
     return (
-        <div className='max-w-7xl mx-auto my-5 lg:flex gap-10 px-5 '>
+        <div className='max-w-7xl mx-auto my-5 xl:flex gap-10 px-5 md:px-12 '>
             <div>
-                <h1 className='text-xl font-Poppins font-semibold mb-2'>Mastering Docker from beginners to advance</h1>
+                <h1 className='text-xl font-Poppins font-semibold mb-2 pb-5'>Mastering Docker from beginners to advance</h1>
                 <div>
                     <video
-                        className='w-[800px] md:rounded-lg'
+                        className='w-full h-fit xl:w-[50vw]   rounded-lg overflow-hidden '
                         controls
                         onPlay={() => handleLectureProgression(currentLecture?._id || initialLecture?._id)}
                         src={currentLecture?.videoUrl || initialLecture?.videoUrl}>
@@ -95,14 +95,14 @@ const CourseProgress = () => {
                 <button onClick={completed ? handleCourseInCompleted : handleCourseCompleted} className={`p-2 flex gap-2 rounded-md my-2 ${completed ? "bg-slate-200 text-black font-semibold" : "bg-black text-white"} `}><>{completed && <CheckCircle className='text-black' />}</>{completed ? "completed" : "Marked as Completed"}</button>
                 {/* </div > */}
             </div>
-            <div className=" space-y-3 mt-5">
+            <div className=" space-y-3 mt-5 mb-10">
                 <h2 className='text-xl font-semibold'>Lectures</h2>
                 {
                     course.lectures.map((lecture) => (
                         <div
                             onClick={() => handleSelectLecture(lecture)}
                             key={lecture._id}
-                            className={`flex items-start justify-between gap-3 p-4 rounded-lg dark:bg-gray-800/80  shadow-lg hover:shadow-xl transition-shadow group hover:cursor-pointer ${lecture._id === currentLecture?._id ? "bg-gray-200 dark:bg-gray-200" : ""}`}
+                            className={`flex items-start justify-between gap-3 p-4 rounded-lg dark:bg-gray-800/80  shadow-lg hover:shadow-xl transition-shadow group hover:cursor-pointer ${lecture._id === currentLecture?._id ? "bg-gray-200 dark:bg-gray-600/90" : ""}`}
                         >
                             <div className='flex items-center gap-4 '>
                                 {handleLectureCompleted(lecture._id) ? (

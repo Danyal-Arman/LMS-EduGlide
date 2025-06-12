@@ -37,6 +37,7 @@ const courseApi = createApi({
                     method: "GET"
                 }
             },
+            keepUnusedDataFor: 0,
         }),
         getPublishedCourse:builder.query({
             query:()=>({
