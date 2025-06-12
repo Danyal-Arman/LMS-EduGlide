@@ -6,7 +6,7 @@ try{
  console.log("Connected to MongoDB successfully")
 }
 catch(error){
-   console.log(error.message)
+   console.error(error)
    throw error;
 }
 }

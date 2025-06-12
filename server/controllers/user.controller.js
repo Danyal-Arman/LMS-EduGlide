@@ -40,7 +40,6 @@ export const registerUser = async (req, res) => {
         });  
 
     } catch (error) {
-        console.log(error)
         return res.status(500).json({
             success: false,
             message: 'Server error during registration'
@@ -98,7 +97,6 @@ export const logoutUser = async (req, res) => {
             message: "logout successfully"
         })
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             success: false,
             message: 'Failed to logout'
@@ -134,7 +132,6 @@ try {
  
      
 } catch (error) {
-    console.log(error.message);
     return res.status(500).json({
         success: false, 
         message: 'Failed to get user profile'
@@ -182,7 +179,6 @@ export const  updateProfile = async(req,res)=>{
         });
     }
      catch (error) {
-        console.log(error)
         return res.status(500).json({
             success:false,
             message: 'Failed to update profile'

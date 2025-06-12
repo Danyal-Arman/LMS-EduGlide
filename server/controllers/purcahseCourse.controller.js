@@ -4,13 +4,11 @@ import { courseModel } from "../models/course.model.js";
 import { lectureModel } from "../models/lecture.model.js";
 import crypto from "crypto";
 import { userModel } from "../models/user.model.js";
-import mongoose from "mongoose";
 import { CourseProgress } from "../models/courseProgress.js";
 export const createOrder = async (req, res) => {
     try {
 
-        // const userId = req.body.id
-        // console.log("this is userId", userId)
+
         const courseId = req.body.courseId
 
 
@@ -41,7 +39,6 @@ export const createOrder = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error)
         return res.status(500).json({
             success: false,
             message: "Error creating order"
@@ -107,7 +104,7 @@ export const verifyPayment = async (req, res) => {
             { $addToSet: { enrolledCourses: populatePurchase.courseId._id.toString() } },
             { new: true }
         )
-      
+
 
 
 
@@ -123,7 +120,6 @@ export const verifyPayment = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error)
         return res.status(500).json({
             success: false,
             message: "Server error, payment verification failed"
@@ -159,7 +155,6 @@ export const getPurchasedCourseStatus = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error)
         return res.status(500).json({
             success: false,
             message: "Server error, Failed to get purchased purchasedCourse"
@@ -181,7 +176,6 @@ export const getAllPurchasedCourse = async (_, res) => {
             purchasedCourse,
         });
     } catch (error) {
-        console.log(error);
     }
 };
 
@@ -198,7 +192,7 @@ export const getAdminCourseStatusPurchased = async (req, res) => {
         }
 
         const adminCourseIds = adminCourses.map((course => course._id))
-    
+
         const adminPurchasedCourses = await coursePurchase
             .find({
                 status: "success",
@@ -207,7 +201,7 @@ export const getAdminCourseStatusPurchased = async (req, res) => {
             }).populate("courseId", "enrolledStudents category lectures").populate("userId", "photo username")
 
         const courseProgress = await CourseProgress.find({
-            courseId: {$in: adminCourseIds}
+            courseId: { $in: adminCourseIds }
         })
 
 
@@ -218,6 +212,9 @@ export const getAdminCourseStatusPurchased = async (req, res) => {
 
         })
     } catch (error) {
-        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: "internal server error"
+        })
     }
 }

@@ -29,14 +29,17 @@ export const getCourseProgress = async (req, res) => {
                 progress: courseProgress.lectureProgress,
                 completed: courseProgress.completed
             },
-            message :"hey this is success data of getcourseProgress"
+            message: "hey this is success data of getcourseProgress"
         })
     } catch (error) {
-        console.log(error)
+      return res.status(500).json({
+            success: false,
+            message: "internal server error"
+        })
     }
 }
 export const updateLectureProgress = async (req, res) => {
-    try { 
+    try {
         const { courseId, lectureId } = req.params;
         const userId = req.body.id;
 
@@ -75,12 +78,15 @@ export const updateLectureProgress = async (req, res) => {
         if (course.lectures.length === lectureProgressLength) courseProgress.completed = true;
 
         await courseProgress.save();
- 
+
         return res.status(200).json({
             message: "Lecture progress updated successfully.",
         });
-    } catch (error) { 
-        console.log(error)
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "internal server error"
+        })
     }
 }
 export const markedCourseAsCompleted = async (req, res) => {
@@ -88,13 +94,13 @@ export const markedCourseAsCompleted = async (req, res) => {
         const { courseId } = req.params;
         const userId = req.body.id;
 
-        const course = await  courseModel.findById(courseId)
-        if(!course){
-             return res.status(400).json({
+        const course = await courseModel.findById(courseId)
+        if (!course) {
+            return res.status(400).json({
                 message: "Failed to find course"
-             })
-       }
-       
+            })
+        }
+
 
         const courseProgress = await CourseProgress.findOne({ courseId, userId })
         if (!courseProgress) {
@@ -105,13 +111,12 @@ export const markedCourseAsCompleted = async (req, res) => {
 
 
 
-       
-       courseProgress.lectureProgress.map((lectureProg) => (lectureProg.viewed = true)); // jitne bhi lecture h lecture progress me unsbko ko true kr rahe h
-       courseProgress.completed = true; 
-       await courseProgress.save();
-        return res.status(200).json({message:"course marked as completed "})
+
+        courseProgress.lectureProgress.map((lectureProg) => (lectureProg.viewed = true)); // jitne bhi lecture h lecture progress me unsbko ko true kr rahe h
+        courseProgress.completed = true;
+        await courseProgress.save();
+        return res.status(200).json({ message: "course marked as completed " })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({
             message: "Internal server error in marking course as completed.",
         })
@@ -133,10 +138,9 @@ export const markedCourseAsInCompleted = async (req, res) => {
         courseProgress.lectureProgress.map((lectureProg) => (lectureProg.viewed = false));// jitne bhi lecture h lecture progress me unsbko ko false kr rahe h
         courseProgress.completed = false;
         await courseProgress.save();
-        return res.status(200).json({message:"course marked as incompleted "})
+        return res.status(200).json({ message: "course marked as incompleted " })
 
     } catch (error) {
-        console.log(error)
 
         return res.status(500).json({
             message: "Internal server error in marking course as incomplete.",

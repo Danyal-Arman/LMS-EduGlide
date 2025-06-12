@@ -1,7 +1,7 @@
 import { courseModel } from "../models/course.model.js";
 import { lectureModel } from "../models/lecture.model.js";
 import { deletePhotoFromCloudinary, deleteVideoFromCloudinary, uploadMedia } from "../utils/cloudinary.js";
-// 
+
 
 export const createCourse = async (req, res) => {
     try {
@@ -21,7 +21,6 @@ export const createCourse = async (req, res) => {
             message: "Course created successfully",
         })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({
             message: "Internal Server Error"
         })
@@ -60,24 +59,25 @@ export const searchCourse = async (req, res) => {
         const courses = await courseModel.find(filterCriteria)
             .populate({ path: "creator", select: "username photo" }).sort(sortOption)
 
-            return res.status(200).json({
-                success: true,
-                courses: courses || []
-            })
+        return res.status(200).json({
+            success: true,
+            courses: courses || []
+        })
 
 
 
     } catch (error) {
-        console.log(error)
+        return res.status(500).json({
+            message: "Internal Server Error"
+        })
     }
 }
 
 
 export const getAdminCourses = async (req, res) => {
     try {
-        const userId = req.body.id; // user id h 
-        const course = await courseModel.find({ creator: userId }) // finding courses linked to the userid
-        // from here find return array of courses that matches that belongs to that user
+        const userId = req.body.id;
+        const course = await courseModel.find({ creator: userId })
 
         if (!course) {
             return res.status(404).json({
@@ -90,7 +90,6 @@ export const getAdminCourses = async (req, res) => {
             course,
         })
     } catch (error) {
-        console.log(error.message)
         return res.status(500).json({
             message: "Internal Server Error"
         })
@@ -138,7 +137,6 @@ export const editAdminCourses = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error.message)
         return res.status(500).json({
             message: "Failed to update course"
         })
@@ -163,7 +161,6 @@ export const getCourseById = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error)
         return res.status(500).json({
             message: "Failed to get course"
         })
@@ -240,7 +237,6 @@ export const removeCourse = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error)
         res.status(500).json({
             success: false,
             message: "Failed to Remove Course"
@@ -264,7 +260,6 @@ export const getPublishedCourse = async (_, res) => {
         })
 
     } catch (error) {
-        console.log(error)
         return res.status(500).json({
             success: false,
             message: "Failed to get published course"
@@ -310,7 +305,10 @@ export const courseRatingAndReview = async (req, res) => {
         })
 
     } catch (error) {
-        console.log(error)
+       return res.status(500).json({
+            success: false,
+            message: "internal server error"
+        })
     }
 
 }
@@ -336,7 +334,10 @@ export const getUserCourseRatingById = async (req, res) => {
         })
 
     } catch (error) {
-        console.log(error)
+       return res.status(500).json({
+            success: false,
+            message: "internal server error"
+        })
     }
 }
 
@@ -358,7 +359,10 @@ export const getCourseAllReviewsAndRatings = async (req, res) => {
         })
 
     } catch (error) {
-        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: "internal server error"
+        })
     }
 }
 
