@@ -12,13 +12,10 @@ const Courses = () => {
 
   const courseWithAverageRatings = data?.publishedCourse.map((course) => {
     const ratings = course.courseRating || []; // array of ratings
-    console.log("this is rating", ratings)
   
     const totalRatings = ratings.length;
-    console.log("this is total rating",totalRatings)
   
     const sumOfRatings = ratings.reduce((acc, curr) => acc + curr.rating, 0);
-    console.log("sum of rating",sumOfRatings)
   
     const averageRating = totalRatings === 0 ? 0 : Number((sumOfRatings / totalRatings).toFixed(1));
   
@@ -27,9 +24,7 @@ const Courses = () => {
       averageRating, // ✅ add this new field
     };
   });
-  console.log(data)
    
-  console.log("he he",courseWithAverageRatings) 
   
   if (isLoading || !data) {
     return (

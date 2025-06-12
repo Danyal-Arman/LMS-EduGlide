@@ -14,9 +14,7 @@ const MobileNavBar = ({ sidebarIsOpen, setSidebarIsOpen, myThemeToggle, theme, l
   const { data } = useGetUserQuery();
   const [logOutUser, { data: logOutData, isSuccess: logOutIsSuccess, isError: logOutError }] = useLogOutUserMutation()
   const navigate = useNavigate()
-  // const { user, isAuthenticated } = useSelector(state => state.auth);
   const authState = useSelector(state => state.auth);
-  // console.log("Redux Auth State:", authState);
 
 
 
@@ -74,10 +72,7 @@ const MobileNavBar = ({ sidebarIsOpen, setSidebarIsOpen, myThemeToggle, theme, l
               <BookOpen />
               <Link to="/my-learning">My courses</Link>
             </li>
-            {/* <li className="hover:text-gray-400 cursor-pointer flex gap-2">
-              <Phone />
-              <Link to="">Contact</Link>
-            </li> */}
+           
 
             {data?.user?.role === "instructor" && (
               <li className="hover:text-gray-400 cursor-pointer flex gap-2">

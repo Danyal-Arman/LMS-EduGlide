@@ -11,11 +11,9 @@ const CourseReview = ({ courseId }) => {
     const { data, isLoading, isSuccess, error } = useGetCourseAllReviewsAndRatingsQuery(courseId)
 
     if (isLoading) return <div>loading...</div>
-    console.log("this is course all reviews and ratings", data)
 
     const sortData = [...data?.Ratings.courseRating].filter((rating)=> rating.review.trim() !=="").sort((a,b) => (b.rating - a.rating))
 
-    console.log("this is sortdata",sortData )
 
    
 

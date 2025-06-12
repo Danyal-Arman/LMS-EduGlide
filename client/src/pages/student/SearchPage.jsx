@@ -32,9 +32,9 @@ const SearchPage = () => {
     query: selectedCategories ? "" : query, // agr koi category select hua to query empty string hojayega "" : wrna agr category select nhi hoga to query return hoga
     categories: selectedCategories,
   },
-  
+
   )
-  const isEmpty =  !isLoading && data?.courses?.length === 0
+  const isEmpty = !isLoading && data?.courses?.length === 0
 
 
 

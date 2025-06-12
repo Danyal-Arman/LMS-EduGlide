@@ -47,7 +47,6 @@ const EditLecture = () => {
                     setBtnDisable(true)
                 }
             });
-            console.log("Upload response:", res.data);
 
             if (res?.status === 200 && res.data?.success) {
                 setUploadVideoInfo({

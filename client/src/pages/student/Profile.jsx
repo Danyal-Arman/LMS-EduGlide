@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { toast } from 'sonner';
 import {
     User,
-    Mail, 
+    Mail,
     Camera,
     GraduationCap,
 
@@ -12,15 +12,15 @@ import { useGetUserQuery, useUpdateUserProfileMutation } from '@/features/api/au
 import ContinueCourse from './ContinueCourse';
 
 function Profile() {
-    const { data, isLoading, refetch } = useGetUserQuery({refetchOnMountOrArgChange:true});  // for query{} is used , for mutation []is used
-    const [updateUserProfile, { data: profileData,  isSuccess:profileIsSucess, error: profileError, }] = useUpdateUserProfileMutation();
+    const { data, isLoading, refetch } = useGetUserQuery({ refetchOnMountOrArgChange: true });  // for query{} is used , for mutation []is used
+    const [updateUserProfile, { data: profileData, isSuccess: profileIsSucess, error: profileError, }] = useUpdateUserProfileMutation();
 
     const [profile, setProfile] = useState(null)
     const [isEditing, setIsEditing] = useState(false);
     const [prevProfile, setPrevProfile] = useState(null)
     const [profilePhoto, setProfilePhoto] = useState('')
     const fileReference = useRef(null)
-   
+
 
 
 
@@ -29,8 +29,8 @@ function Profile() {
             const userProfile = {
                 username: data.user.username,
                 email: data.user.email,
-                role:data.user.role,
-                id:data.user._id
+                role: data.user.role,
+                id: data.user._id
             };
             setProfile(userProfile);
             setPrevProfile(userProfile);
@@ -38,35 +38,35 @@ function Profile() {
     }, [data])
 
     useEffect(() => {
-      if(profileError){
-          toast.error(profileError.profileData.message || "Profile update failed")
+        if (profileError) {
+            toast.error(profileError.profileData.message || "Profile update failed")
         }
-        if(profileIsSucess){
+        if (profileIsSucess) {
             toast.success(profileData.message || `Profile updated successfuy`)
             refetch();
-      } 
-     
-    
-    }, [profileIsSucess,  profileError])
-  
+        }
+
+
+    }, [profileIsSucess, profileError])
 
 
 
 
-  if (isLoading || !profile )
-  return (
-    <div className="flex justify-center items-center min-h-screen font-montserrat">
-      <div className="flex items-end gap-2">
-        <div className="relative h-[37px] w-[15px]">
-          <div className="absolute top-0 w-[15px] h-[15px] bg-[#fbae17] rounded-full animate-bounceball"></div>
-        </div>
-        <div className="text-[#fbae17] ml-2">NOW LOADING</div>
-      </div>
-    </div>
-  );
 
-   // dono me se koi bhi agar true hoga to loading aayega
- 
+    if (isLoading || !profile)
+        return (
+            <div className="flex justify-center items-center min-h-screen font-montserrat">
+                <div className="flex items-end gap-2">
+                    <div className="relative h-[37px] w-[15px]">
+                        <div className="absolute top-0 w-[15px] h-[15px] bg-[#fbae17] rounded-full animate-bounceball"></div>
+                    </div>
+                    <div className="text-[#fbae17] ml-2">NOW LOADING</div>
+                </div>
+            </div>
+        );
+
+    // dono me se koi bhi agar true hoga to loading aayega
+
 
 
 
@@ -84,19 +84,18 @@ function Profile() {
 
     }
     // for form Data (when we send file we have to use formData)
-    const updateUser = async() => {
+    const updateUser = async () => {
         const formData = new FormData();
         formData.append("username", profile.username)
         formData.append("id", profile.id);
         formData.append("profilePhoto", profilePhoto)
         formData.append("role", profile.role)
-      await  updateUserProfile(formData)
-    } 
+        await updateUserProfile(formData)
+    }
 
-    const handlSave = async() => {
+    const handlSave = async () => {
         updateUser();
         setIsEditing(false);
-        console.log("this is data",data)
 
     }
     const handleCancel = () => {
@@ -105,7 +104,6 @@ function Profile() {
 
     }
     const user = data && data.user;
-    console.log("this is user",user)
 
     return (
         <div className="max-w-7xl min-h-screen mx-auto px-4 sm:px-6 gap-10 ">
@@ -113,7 +111,7 @@ function Profile() {
                 <h1 className='text-4xl font-semibold '>Profile</h1>
                 <div className='space-x-2'>
                     {!isEditing && <button onClick={() => setIsEditing(true)} className={`text-xl font-semibold bg-green-600 hover:bg-green-700 text-white px-5 py-1 rounded-md transition-all duration-300`}>Edit</button>}
-                    {isEditing &&<>
+                    {isEditing && <>
                         <button onClick={handlSave} className='text-xl font-semibold bg-green-600 hover:bg-green-700 text-white px-5 py-1 rounded-md transition-all duration-300'>Save</button>
                         <button onClick={handleCancel} className='text-xl font-semibold bg-red-600 hover:bg-red-700 text-white px-5 py-1 rounded-md transition-all duration-300'>Cancel</button>
                     </>}
@@ -126,8 +124,8 @@ function Profile() {
                     <div className=''>
                         <div className='flex flex-col items-center space-y-2 '>
                             <div className='relative'>
-                                <Avatar  className="hover:cursor-pointer ">
-                                    <AvatarImage src={user?.photo || "https://github.com/shadcn.png"}   className='h-24 rounded-full object-cover w-24'  alt="Avatar"/>
+                                <Avatar className="hover:cursor-pointer ">
+                                    <AvatarImage src={user?.photo || "https://github.com/shadcn.png"} className='h-24 rounded-full object-cover w-24' alt="Avatar" />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
                                 <input accept='image/*' ref={fileReference} type="file" className='hidden' onChange={handleProfilePhoto} />
@@ -154,12 +152,12 @@ function Profile() {
                             </div> */}
                             <div className="flex items-center text-White">
                                 <GraduationCap className="h-6 w-6 mr-3" />
-                                <select onChange={handleChange} disabled={!isEditing} value={profile.role} className='dark:text-white  dark:bg-gray-900 md:w-40 w-full  appearance-none'  name="role" id="">
+                                <select onChange={handleChange} disabled={!isEditing} value={profile.role} className='dark:text-white  dark:bg-gray-900 md:w-40 w-full  appearance-none' name="role" id="">
                                     <option value="student">STUDENT</option>
                                     <option value="instructor">INSTRUCTOR</option>
                                 </select>
                             </div>
-                                
+
                         </div>
                     </div>
 
@@ -169,7 +167,7 @@ function Profile() {
 
                 {/*Courses */}
                 <div className=' lg:col-span-2 my-4 lg:my-0 lg:mx-4 space-y-4 rounded-lg' >
-                    <h1   className='text-3xl font-semibold text-center '>Enrolled Courses</h1>
+                    <h1 className='text-3xl font-semibold text-center '>Enrolled Courses</h1>
                     <div className='grid grid-cols-1 sm:grid-cols-2   place-items-center gap-10 sm:gap-12  mx-5 lg:mx-16 pt-2 pb-3  pr-2  '>
                         {user?.enrolledCourses.length === 0 ? "You are not enrolled in any courses yet." : (user?.enrolledCourses.map((course) => <ContinueCourse course={course} key={course._id} />))}
                     </div>

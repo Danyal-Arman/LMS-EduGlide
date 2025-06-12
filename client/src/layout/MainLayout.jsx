@@ -7,14 +7,12 @@ import { Outlet } from "react-router-dom";
 import React from 'react'
 
 const MainLayout = () => {
- 
+
   return (
     <div>
-    <Navbar/>
+      <Navbar />
       <div>
-        {/* children aayenge (to render children we use outlet) */}
-        <Outlet/> {/* outlet is a special component in react router dom that allows us to render children */}
-       {/* <Footer /> */}
+        <Outlet />
       </div>
     </div>
   )

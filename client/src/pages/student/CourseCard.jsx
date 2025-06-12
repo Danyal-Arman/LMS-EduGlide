@@ -1,14 +1,12 @@
 import React from 'react'
-import { Star, Users, Clock, BookOpen } from 'lucide-react'
+import {Users} from 'lucide-react'
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useGetCourseAllReviewsAndRatingsQuery, useGetPublishedCourseQuery } from '@/features/api/courseApi';
+import { Link} from 'react-router-dom';
 import { Rating } from "@mui/material";
 
 const CourseCard = ({ course }) => {
 
 
-  console.log("this is course", course)
 
 
 

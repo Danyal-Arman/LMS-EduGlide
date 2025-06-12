@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { User, Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
 import { useRegisterUserMutation, useLoginUserMutation } from '@/features/api/authApi';
-import {toast} from "sonner"
+import { toast } from "sonner"
 import { useNavigate } from 'react-router-dom';
 // import { loginUser, registerUser } from "@/features/api/authApi";
 
@@ -10,9 +10,9 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(true)
   const [signupInput, setSignupInput] = useState({ username: "", email: "", password: "" })
   const [loginInput, setLoginInput] = useState({ email: "", password: "" })
-  
+
   const [registerUser, { data: registerData, error: registerError, isLoading: registerIsLoading, isSuccess: registerIsSuccess }] = useRegisterUserMutation();
-  const [loginUser,    { data: loginData, error: loginError, isLoading: loginIsLoading, isSuccess: loginIsSuccess }] = useLoginUserMutation()
+  const [loginUser, { data: loginData, error: loginError, isLoading: loginIsLoading, isSuccess: loginIsSuccess }] = useLoginUserMutation()
   const navigate = useNavigate();
 
 
@@ -30,43 +30,43 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-  
+
     const inputData = isLogin ? loginInput : signupInput;
-    const action = isLogin ?  loginUser :  registerUser;
+    const action = isLogin ? loginUser : registerUser;
     await action(inputData);
-   
-   }
+
+  }
 
   useEffect(() => {
-  if(registerIsSuccess){
-    toast.success(registerData.message || "successfully registered")
-    navigate('/')
-  }
-  if(registerError){
-  if(registerError.data && registerError.data.message){
-    toast.error(registerError.data.message || "signUp failed")
-  }
-  else{
-    toast.error("signUp failed! something is wrong with the server")
-  }
-}
-  if(loginIsSuccess ){
-    toast.success(`${loginData.message}` || "successfully logged ");
-    navigate('/')
-  }
-  if(loginError){
-  if(loginError.data && loginError.data.message){
-    toast.error(loginError.data.message || "login failed")
-  }
-else{
-  toast.error("something is wrong with the server")
-}  
-}
+    if (registerIsSuccess) {
+      toast.success(registerData.message || "successfully registered")
+      navigate('/')
+    }
+    if (registerError) {
+      if (registerError.data && registerError.data.message) {
+        toast.error(registerError.data.message || "signUp failed")
+      }
+      else {
+        toast.error("signUp failed! something is wrong with the server")
+      }
+    }
+    if (loginIsSuccess) {
+      toast.success(`${loginData.message}` || "successfully logged ");
+      navigate('/')
+    }
+    if (loginError) {
+      if (loginError.data && loginError.data.message) {
+        toast.error(loginError.data.message || "login failed")
+      }
+      else {
+        toast.error("something is wrong with the server")
+      }
+    }
 
 
-    
+
   }, [loginIsLoading, registerIsLoading, loginIsSuccess, registerIsSuccess, loginError, registerError, loginData, registerData, loginUser])
-  
+
 
   return (
     <div className='bg-gradient-to-br from-white via-yellow-200 to-yellow-500 h-screen w-full flex items-center justify-center
@@ -88,10 +88,10 @@ else{
 
 
         {/*main */}
-        
+
         <div className='form  '>
           <form onSubmit={onSubmit} >
-          {!isLogin && (
+            {!isLogin && (
               <div className='animate-float-in' style={{ '--delay': '0s' }}>
                 <div className='relative  ml-6 mr-6 mt-7 '>
                   <User className='absolute top-3 left-2 dark:text-black' />
@@ -124,7 +124,7 @@ else{
                 onChange={handleInput}
                 placeholder='password'
                 className=' mb-3 w-full pl-10 py-3 rounded-md outline-none  text-black'
-              />  
+              />
             </div>
 
             <div className='relative ml-6 mr-6 mb-8 bg-yellow-300 mt-8 rounded-xl'>
@@ -143,7 +143,7 @@ else{
         {/* Arrow button to move to signup or login page */}
 
         <div className="flex justify-center mb-8 relative">
-           <button className='flex'
+          <button className='flex'
             onClick={() => setIsLogin(!isLogin)}>
             <span className='flex items-center font-Poppins dark:text-black'>{!isLogin ? "Already have an account?" : "Don't have an account?"}</span>
             <ArrowRight className='hover:ml-1 transition-all dark:text-black' />

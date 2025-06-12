@@ -1,4 +1,3 @@
-// create a sidebar or mobilenavbar from the below import React from 'react'
 import { useEffect, useState } from 'react';
 import { GraduationCap, BookOpen, Sparkles, Sun, Moon, AlignJustify } from 'lucide-react';
 import { useTheme } from '../context/themeContext';

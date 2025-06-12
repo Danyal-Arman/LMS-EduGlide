@@ -51,17 +51,14 @@ const Dashboard = () => {
       })
 
       setProgressData((e) => {
-        console.log("Updated progressData:", result);
         return result;
       });
-      console.log("this is result", result)
 
     }
 
   }, [data, adminCourseData])
 
   useEffect(() => {
-    console.log("Updated progressData:", progressData);
   }, [progressData]);
 
 
