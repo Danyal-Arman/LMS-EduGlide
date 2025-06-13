@@ -25,7 +25,7 @@ ConnectDB()
 
 // Allow frontend (5173) to access backend (3000)
 app.use(cors({
-    origin: "http://localhost:5173", 
+    origin: "https://eduglide-client.onrender.com" || "http://localhost:5173", 
     credentials:true 
 }))
 
