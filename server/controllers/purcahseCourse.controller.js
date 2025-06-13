@@ -5,46 +5,90 @@ import { lectureModel } from "../models/lecture.model.js";
 import crypto from "crypto";
 import { userModel } from "../models/user.model.js";
 import { CourseProgress } from "../models/courseProgress.js";
+
+// export const createOrder = async (req, res) => {
+//     try {
+
+
+//         const courseId = req.body.courseId
+
+
+//         const purchasedCourse = await courseModel.findById(courseId)
+//         if (!purchasedCourse) {
+
+//             return res.status(400).json({
+//                 success: false,
+//                 message: "Course not found",
+//             })
+//         }
+
+//         // creating razorpay order
+//         const options = {
+//             amount: purchasedCourse.coursePrice * 100,
+//             currency: "INR",
+//         }
+
+//         const order = await razorpayInstance.orders.create(options)
+
+//         return res.status(200).json({
+//             success: true,
+//             order_id: order.id,
+//             key: process.env.RAZORPAY_KEY_ID,  // FOR FRONTEND
+//             amount: order.amount,
+//             currency: order.currency,
+//             message: "purchasedCourse order created successfully",
+//         })
+
+
+//     } catch (error) {
+//         return res.status(500).json({
+//             success: false,
+//             message: "Error creating order"
+//         })
+//     }
+// }
 export const createOrder = async (req, res) => {
-    try {
+  try {
+    const courseId = req.body.courseId;
+    console.log("Received courseId:", courseId);
 
-
-        const courseId = req.body.courseId
-
-
-        const purchasedCourse = await courseModel.findById(courseId)
-        if (!purchasedCourse) {
-            return res.status(400).json({
-                success: false,
-                message: "Course not found",
-            })
-        }
-
-        // creating razorpay order
-        const options = {
-            amount: purchasedCourse.coursePrice * 100,
-            currency: "INR",
-        }
-
-        const order = await razorpayInstance.orders.create(options)
-
-        return res.status(200).json({
-            success: true,
-            order_id: order.id,
-            key: process.env.RAZORPAY_KEY_ID,  // FOR FRONTEND
-            amount: order.amount,
-            currency: order.currency,
-            message: "purchasedCourse order created successfully",
-        })
-
-
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "Error creating order"
-        })
+    const purchasedCourse = await courseModel.findById(courseId);
+    if (!purchasedCourse) {
+      console.log("Course not found for ID:", courseId);
+      return res.status(400).json({
+        success: false,
+        message: "Course not found",
+      });
     }
-}
+
+    const options = {
+      amount: purchasedCourse.coursePrice * 100,
+      currency: "INR",
+    };
+
+    console.log("Creating order with options:", options);
+
+    const order = await razorpayInstance.orders.create(options);
+
+    console.log("Order created successfully:", order);
+
+    return res.status(200).json({
+      success: true,
+      order_id: order.id,
+      key: process.env.RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: order.currency,
+      message: "Purchased course order created successfully",
+    });
+  } catch (error) {
+    console.error("Error in createOrder:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error creating order",
+    });
+  }
+};
+
 
 
 export const verifyPayment = async (req, res) => {
