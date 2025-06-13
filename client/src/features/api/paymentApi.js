@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 
-const PAYMENT_API = "https://eduglide-server.onrender.com" || "http://localhost:3000/purchase"
+const PAYMENT_API = "https://eduglide-server.onrender.com/purchase"
 
 export const paymentApi = createApi({
     reducerPath: 'paymentApi',

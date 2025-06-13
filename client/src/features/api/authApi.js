@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { userLoggedIn, userLoggedOut } from '../authSlice';
 
-const USER_API = "https://eduglide-server.onrender.com" || 'http://localhost:3000/user/'
+const USER_API = "https://eduglide-server.onrender.com/user/"
 
 const userApi = createApi({
     reducerPath: "userApi",

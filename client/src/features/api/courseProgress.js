@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const COURSE_PROGRESS_API = "https://eduglide-server.onrender.com" || "http://localhost:3000/course-progress"
+const COURSE_PROGRESS_API = "https://eduglide-server.onrender.com/course-progress"
 
 const courseProgressApi = createApi({
     reducerPath: "courseProgressApi",
