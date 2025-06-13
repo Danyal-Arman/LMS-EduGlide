@@ -32,7 +32,7 @@ export const registerUser = async (req, res) => {
         await newUser.save(); // is placed before sending the final response (res.status(201).json(...)) to ensure that the user is successfully saved to the database before sending a response.
 
         return res.status(201).cookie("token", token, {
-            httpOnly: true, sameSite: "Strict",
+            httpOnly: true,secure: true, sameSite: "None",
             maxAge: 24 * 60 * 60 * 1000
         }).json({
             success: true,
@@ -75,7 +75,7 @@ export const loginUser = async (req, res) => {
         }
         else {
             let token = generateToken(user);
-            res.status(200).cookie("token", token, { httpOnly: true, sameSite: "Strict", maxAge: 24 * 60 * 60 * 1000 }).json({
+            res.status(200).cookie("token", token, { httpOnly: true, secure: true, sameSite: "None", maxAge: 24 * 60 * 60 * 1000 }).json({
                 success: true,
                 message: `Welcome back ${user.username}`
             })
