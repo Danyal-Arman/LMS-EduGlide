@@ -45,7 +45,6 @@ export const createLecture = async (req, res) => {
 
 export const getLecture = async (req, res) => {
     try {
-        // getting lecture related to course getCourseLecture simple
         const { courseId } = req.params;
         const course = await courseModel.findById(courseId).populate("lectures")
         if (!course) {

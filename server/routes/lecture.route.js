@@ -7,9 +7,9 @@ const router = express.Router();
 
 router.post("/:courseId",isLoggedIn, createLecture)
 router.get("/:courseId", isLoggedIn, getLecture)
+router.get("/:courseId/:lectureId", isLoggedIn, getLectureById)
 router.post("/:courseId/:lectureId", isLoggedIn, updateLecture)
 router.delete("/:courseId/:lectureId/remove", isLoggedIn, removeLecture)
-router.get("/:courseId/:lectureId", isLoggedIn, getLectureById)
 
 
 export default router;
