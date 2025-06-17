@@ -24,7 +24,6 @@ const EditCourse = () => {
     const [publishCourse, {data:publishData}]= usePublishCourseMutation();
     const [removeCourse, {data:deleteCourseData,isSuccess:deleteCourseIsSucess, error:deleteCourseError}] = useRemoveCourseMutation();
     const navigate = useNavigate();
-    const editorRef = useRef(null);
  
     const courseData = courseDataById?.course;
     useEffect(() => {
@@ -151,7 +150,7 @@ const EditCourse = () => {
 
                 <div className='flex flex-col my-5 space-y-1'>
                     <label className='text-xl font-semibold'>Description</label>
-                    <RichTextEditor ref={editorRef} courseInput={courseInput} setCourseInput={setCourseInput} />
+                    <RichTextEditor courseInput={courseInput} setCourseInput={setCourseInput} />
                 </div>
 
 

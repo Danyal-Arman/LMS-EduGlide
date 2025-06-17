@@ -21,15 +21,6 @@ const logoutHandler= async()=>{
 await logOutUser();
 }
 
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setIsScrolled(window.scrollY > 50);
-  //   };
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, []);
-
   useEffect(() => {
 if(logOutIsSuccess){
   toast.success(logOutData.message || "Logout successfully")
@@ -117,7 +108,8 @@ if(logOutError){
           </div>)}
        
         {/*Mobile Navbar */}
-        <button onClick={() => { setSidebarIsOpen(true) }}><AlignJustify className="w-fit h-13  pr-3 text-green-600 sm:hidden  " />
+        <button 
+        onClick={() => { setSidebarIsOpen(true) }}><AlignJustify className="w-fit h-13  pr-3 text-purple-600  sm:hidden  " />
         </button>
         </section>
 

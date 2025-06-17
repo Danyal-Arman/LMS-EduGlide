@@ -5,18 +5,17 @@ import 'react-quill/dist/quill.snow.css';
 
 
 
-const RichTextEditor = forwardRef(({ courseInput, setCourseInput }, ref)=> {
+const RichTextEditor = ({ courseInput, setCourseInput }) => {
   const onChange = (value) => {
     setCourseInput((prevState) => ({ ...prevState, description: value }));
 
   };
 
-  return( <ReactQuill
+  return <ReactQuill
     ref={ref}
     theme="snow"
-    value={courseInput.description}
-    onChange={onChange} 
-    />
-  );
-});
+    value={courseInput.description}  
+    onChange={onChange} />;
+
+}
 export default RichTextEditor;

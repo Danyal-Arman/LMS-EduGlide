@@ -58,7 +58,7 @@ const MobileNavBar = ({ sidebarIsOpen, setSidebarIsOpen, myThemeToggle, theme, l
 
         {/*Sidebar Main Content */}
         <div className="flex flex-col pl-4 items-start w-60 space-y-6">
-          <h2 className="text-2xl font-bold text-green-600">Manage</h2>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Manage</h2>
           <ul className="space-y-4 text-lg ">
             <li className="hover:text-gray-400 border-green-800 cursor-pointer flex gap-2">
               <Home />

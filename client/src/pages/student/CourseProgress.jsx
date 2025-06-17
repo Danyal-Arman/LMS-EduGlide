@@ -36,7 +36,6 @@ const CourseProgress = () => {
     }, [courseInCompleteData, courseInCompleteIssuccess])
 
 
-
     if (isLoading)
         return (
             <div className="flex justify-center items-center min-h-screen font-montserrat">
@@ -74,14 +73,15 @@ const CourseProgress = () => {
         await courseInComplete({ courseId })
     }
 
+  const courseSubTitle = data?.data?.course?.subTitle 
 
-
+  
 
 
     return (
         <div className='max-w-7xl mx-auto my-5 xl:flex gap-10 px-5 md:px-12 '>
             <div>
-                <h1 className='text-xl font-Poppins font-semibold mb-2 pb-5'>Mastering Docker from beginners to advance</h1>
+                <h1 className='text-xl font-Poppins font-semibold mb-2 pb-5'>{courseSubTitle}</h1>
                 <div>
                     <video
                         className='w-full h-fit xl:w-[50vw]   rounded-lg overflow-hidden '
@@ -91,6 +91,7 @@ const CourseProgress = () => {
                     </video>
 
                 </div>
+                <p></p>
                 {/* <div className='flex justify-end'> */}
                 <button onClick={completed ? handleCourseInCompleted : handleCourseCompleted} className={`p-2 flex gap-2 rounded-md my-2 ${completed ? "bg-slate-200 text-black font-semibold" : "bg-black text-white"} `}><>{completed && <CheckCircle className='text-black' />}</>{completed ? "completed" : "Marked as Completed"}</button>
                 {/* </div > */}
