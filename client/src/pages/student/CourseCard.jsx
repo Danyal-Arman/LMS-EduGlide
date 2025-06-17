@@ -34,7 +34,7 @@ const CourseCard = ({ course }) => {
                 </Avatar>
                 <h2>By {course.creator?.username}</h2>
               </div>
-              <h2 className='bg-green-500 rounded-md px-2 text-white text-sm'>{course?.courseLevel}</h2>
+              <h2 className='bg-blue-100 text-blue-800  rounded-md px-2 text-sm'>{course?.courseLevel}</h2>
             </div>
             <div className='flex justify-between'>
               <div className='flex items-center gap-1'>
@@ -61,8 +61,8 @@ const CourseCard = ({ course }) => {
             </div>
             <div className='bg-gray-700 h-[1px]'></div>
             <div className='flex justify-between items-center'>
-              <h2 className='text-green-500 text-xl font-bold'>₹{course.coursePrice}</h2>
-              <button className='bg-green-500 hover:bg-green-600 px-4 py-1 rounded-md text-white'> Enroll
+              <h2 className='text-black dark:text-gray-200 text-xl font-bold'>₹{course.coursePrice}</h2>
+              <button className=' bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-1 rounded-md text-white'> Enroll
               </button>
             </div>
           </div>

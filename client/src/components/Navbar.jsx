@@ -12,8 +12,6 @@ const Navbar = () => {
   const { theme, myThemeToggle } = useTheme();// a custom made hook
   const [navbarIsOpen, setNavbarIsOpen] = useState(false)
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
-  const user = true;
-  const role = 'instructor'
   const navigate = useNavigate();
   const {data} = useGetUserQuery();
   const [logOutUser, {data:logOutData , isSuccess:logOutIsSuccess, isError:logOutError}] = useLogOutUserMutation()
@@ -23,6 +21,14 @@ const logoutHandler= async()=>{
 await logOutUser();
 }
 
+
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setIsScrolled(window.scrollY > 50);
+  //   };
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
   useEffect(() => {
 if(logOutIsSuccess){
@@ -37,20 +43,18 @@ if(logOutError){
 
 
   return (
-    <div className='flex pl-2 h-16 bg-white dark:bg-gray-900 dark:text-gray-100  shadow-md sticky top-0 z-10'>
+    <header className='flex pl-2 h-16 bg-white dark:bg-gray-900 dark:text-gray-100  shadow-md sticky top-0 z-10'>
       {/* Desktop*/}
       <nav className='flex justify-between  w-full items-center sm:pr-4'>
 
         <section>
           <div className='flex gap-4'>
-            <div className="relative">
-              <GraduationCap className="h-8 w-8 text-green-600" />
-              <Sparkles className="h-4 w-4 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
-              <BookOpen className="h-4 w-4 text-green-400 absolute -bottom-1 -right-1" />
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <BookOpen className="w-5 h-5 text-white" />
             </div>
             <div className='flex justify-end'>
             <div onClick={()=>navigate("/")} className="flex flex-col ">
-              <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-500/70 dark:from-green-500 dark:to-green-400 bg-clip-text text-transparent whitespace-normal break-all">
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 EduGlide
               </span>
               <span className="text-xs text-gray-500 -mt-1 whitespace-normal break-all">
@@ -71,7 +75,7 @@ if(logOutError){
               <li className='px-3 py-1 border border-white rounded-md dark:hover:bg-gray-800'>
                 <a href="/login">Login</a>
               </li>
-              <li className='px-3 py-1 border border-white rounded-md dark:hover:bg-gray-800'>
+              <li className='px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors'>
                 <a href="/register">SignUp</a>
               </li>
             </ul>
@@ -120,7 +124,7 @@ if(logOutError){
       </nav>
       <MobileNavBar sidebarIsOpen={sidebarIsOpen} setSidebarIsOpen={setSidebarIsOpen} myThemeToggle={myThemeToggle} theme={theme} logoutHandler={logoutHandler}  />
 
-    </div>
+    </header>
   )
 }
 

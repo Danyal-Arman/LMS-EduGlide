@@ -1,7 +1,7 @@
 import RichTextEditor from '@/components/RichTextEditor';
 import { useRemoveCourseMutation, useEditCourseMutation, useGetCourseByIdQuery, usePublishCourseMutation } from '@/features/api/courseApi';
 import { ArrowRight, Loader2 } from 'lucide-react';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 
@@ -24,7 +24,7 @@ const EditCourse = () => {
     const [publishCourse, {data:publishData}]= usePublishCourseMutation();
     const [removeCourse, {data:deleteCourseData,isSuccess:deleteCourseIsSucess, error:deleteCourseError}] = useRemoveCourseMutation();
     const navigate = useNavigate();
-
+    const editorRef = useRef(null);
  
     const courseData = courseDataById?.course;
     useEffect(() => {
@@ -120,7 +120,7 @@ const EditCourse = () => {
 
 
     return (
-        <div className='w-full  md:w-[85%] p-5  overflow-hidden'>
+        <div className='w-full p-5  overflow-hidden'>
             <div className='flex items-center justify-between flex-wrap'>
                 <h1 className='text-2xl font-bold font-Poppins whitespace-normal break-all'>Edit Course</h1>
                 <button onClick={()=>navigate(`/admin/course/lecture/${courseId}`)} className='flex bg-black text-white px-4 py-1 rounded-md transition-transform hover:scale-95 duration-500 will-change-transform'> <Link to="lecture">Lectures</Link><span> <ArrowRight className='hover:pl-2' /></span></button>
@@ -151,7 +151,7 @@ const EditCourse = () => {
 
                 <div className='flex flex-col my-5 space-y-1'>
                     <label className='text-xl font-semibold'>Description</label>
-                    <RichTextEditor courseInput={courseInput} setCourseInput={setCourseInput} />
+                    <RichTextEditor ref={editorRef} courseInput={courseInput} setCourseInput={setCourseInput} />
                 </div>
 
 

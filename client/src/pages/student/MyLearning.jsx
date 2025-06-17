@@ -28,10 +28,10 @@ const MyLearning = () => {
         </div>
         <div className="space-y-6">
 
-          <div className="justify-items-center md:justify-items-start">
-            <div className='grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3  gap-5 lg:gap-8   pt-2 pb-5'>
+          <div className="justify-items-center  ">
+            <div className='grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3  gap-5 lg:gap-8   pt-2 pb-5  '>
               {user.enrolledCourses.length !== 0 ? (
-                user.enrolledCourses.map((course) => <ContinueCourse course={course} key={course._id} />)
+                user.enrolledCourses.map((course) => <ContinueCourse course={course} key={course._id}  />)
               ) : (<h1 className="text-xl font-semibold">You are not enroled in any courses.</h1>)}
             </div>
           </div>

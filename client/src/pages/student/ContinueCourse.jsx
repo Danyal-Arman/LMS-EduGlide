@@ -23,7 +23,7 @@ const ContinueCourse = ({ course }) => {
                             </Avatar>
                             <h2>By {course.creator.username}</h2>
                         </div>
-                        <h2 className="bg-green-500 rounded-md px-2 text-white text-sm">{course.courseLevel}</h2>
+                        <h2 className="bg-blue-100 rounded-md px-2 text-blue-800 text-sm">{course.courseLevel}</h2>
                     </div>
                     <div className='flex justify-end'>
 
@@ -33,7 +33,9 @@ const ContinueCourse = ({ course }) => {
                         </div>
                     </div>
                     <div className="px-4 ">
-                        <button className="w-full flex items-center justify-center px-4 py-2 border border-green-600 dark:border-green-400 hover:bg-green-500 hover:text-white  text-green-600 dark:text-green-400 rounded-md mt-4 duration-300">
+                        {/* <button className="w-full flex items-center justify-center px-4 py-2 border hover:bg-gradient-to-r from-blue-600 to-purple-600 hover:text-white  text-purple-900 dark:text-white rounded-md mt-4 duration-300"> */}
+                           <button className="w-full flex items-center justify-center px-4 py-2 border  hover:bg-gradient-to-r from-blue-600 to-purple-600 text-purple-900 dark:text-white dark:border-gray-400 hover:dark:border-purple-400 hover:text-white rounded-md mt-4 transition duration-300">
+
                             <PlayCircle className="h-4 w-4 mr-2" /> Continue Learning
                         </button>
                     </div>

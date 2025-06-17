@@ -31,20 +31,20 @@ const CreateCourse = () => {
       
   return (
  
-    <div className='w-[70%] px-10 my-2'>
-      <div className='space-y-4'>
+    <div className='max-w-7xl mx-auto px-10 my-2 '>
+      <div className='space-y-4flex flex-col items-center'>
         <h1 className='text-2xl font-bold'>Hi,Danyal Arman </h1>
         <h1 className='text-xl font-semibold'>Lets create your course add some details of like course title and category and take your course to the next level</h1>
       </div>
       {/* Title */}
       <div className='my-6 space-y-2'>
         <h2 className='font-semibold text-xl'>Title</h2>
-        <input onChange={(e)=>setCourseTitle(e.target.value)} className='shadow-md outline-none py-2 px-4 w-full sm:w-[60vw] dark:placeholder:text-gray-200 text-black rounded-md dark:bg-gray-900 border' name='courseTitle' value={courseTitle} type="text" placeholder="Course Name" />
+        <input onChange={(e)=>setCourseTitle(e.target.value)} className='shadow-md outline-none py-2 px-4 w-full lg:w-4/5 dark:placeholder:text-gray-200 text-black rounded-md dark:bg-gray-900 border' name='courseTitle' value={courseTitle} type="text" placeholder="Course Name" />
       </div>
       {/* Category */}
       <div className='space-y-2'>
         <h2 className='font-semibold text-xl '>Category</h2>
-        <select onChange={(e)=>setCategory(e.target.value)} className='shadow-md py-2 px-2 font-semibold dark:text-gray-200 rounded-md w-full sm:w-[60vw] dark:bg-gray-900 border' value={category}>
+        <select onChange={(e)=>setCategory(e.target.value)} className='shadow-md py-2 px-2 font-semibold dark:text-gray-200 rounded-md w-full lg:w-4/5 dark:bg-gray-900 border' value={category}>
           <option value="option1">Select a category</option>
           <option value="Web Development">Web Development</option>
           <option value="Java Fullstack Development">Java Fullstack Development</option>

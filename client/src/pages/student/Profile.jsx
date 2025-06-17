@@ -110,7 +110,7 @@ function Profile() {
             <div className="my-6 flex flex-wrap justify-between lg:sticky lg:top-24    ">
                 <h1 className='text-4xl font-semibold '>Profile</h1>
                 <div className='space-x-2'>
-                    {!isEditing && <button onClick={() => setIsEditing(true)} className={`text-xl font-semibold bg-green-600 hover:bg-green-700 text-white px-5 py-1 rounded-md transition-all duration-300`}>Edit</button>}
+                    {!isEditing && <button onClick={() => setIsEditing(true)} className={`text-xl font-semibold bg-gradient-to-r from-blue-600 to-purple-700  text-white px-5 py-1 rounded-md transition-all duration-300`}>Edit</button>}
                     {isEditing && <>
                         <button onClick={handlSave} className='text-xl font-semibold bg-green-600 hover:bg-green-700 text-white px-5 py-1 rounded-md transition-all duration-300'>Save</button>
                         <button onClick={handleCancel} className='text-xl font-semibold bg-red-600 hover:bg-red-700 text-white px-5 py-1 rounded-md transition-all duration-300'>Cancel</button>
@@ -142,17 +142,9 @@ function Profile() {
                                 <Mail className="h-5 w-5 mr-3 " />
                                 <input onChange={handleChange} className='dark:text-white focus:outline-none dark:bg-gray-900 w-full md:w-96' type="text" name='email' value={profile?.email || ''} readOnly={!isEditing} autoComplete='off' />
                             </div>
-                            {/* <div className="flex items-center text-White">
-                                <Phone className="h-5 w-5 mr-3" />
-                                <input onChange={handleChange} className='dark:text-white outline-none dark:bg-gray-900 w-60' type="text" name='phone' value={profile?.phone} readOnly={!isEditing} autoComplete='off' />
-                            </div>
-                            <div className="flex items-center text-White">
-                                <MapPin className="h-5 w-5 mr-3" />
-                                <input onChange={handleChange} className='dark:text-white outline-none dark:bg-gray-900 w-60' type="text" name='location' value={profile?.location} readOnly={!isEditing} autoComplete='off' />
-                            </div> */}
                             <div className="flex items-center text-White">
                                 <GraduationCap className="h-6 w-6 mr-3" />
-                                <select onChange={handleChange} disabled={!isEditing} value={profile.role} className='dark:text-white  dark:bg-gray-900 md:w-40 w-full  appearance-none' name="role" id="">
+                                <select onChange={handleChange} disabled={!isEditing} value={profile.role} className='dark:text-white  dark:bg-gray-900 sm:w-fit sm:pr-3   w-full  appearance-none' name="role" id="">
                                     <option value="student">STUDENT</option>
                                     <option value="instructor">INSTRUCTOR</option>
                                 </select>
@@ -166,10 +158,18 @@ function Profile() {
                 {/* Right side */}
 
                 {/*Courses */}
-                <div className=' lg:col-span-2 my-4 lg:my-0 lg:mx-4 space-y-4 rounded-lg' >
-                    <h1 className='text-3xl font-semibold text-center '>Enrolled Courses</h1>
-                    <div className='grid grid-cols-1 sm:grid-cols-2   place-items-center gap-10 sm:gap-12  mx-5 lg:mx-16 pt-2 pb-3  pr-2  '>
-                        {user?.enrolledCourses.length === 0 ? "You are not enrolled in any courses yet." : (user?.enrolledCourses.map((course) => <ContinueCourse course={course} key={course._id} />))}
+                  <div className="lg:col-span-2 my-4 lg:my-0 space-y-4">
+                    <h1 className="text-3xl font-semibold text-center">Enrolled Courses</h1>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 px-2 sm:px-4">
+                        {user?.enrolledCourses.length === 0 ? (
+                            <p className="col-span-full text-center text-gray-500">You are not enrolled in any courses yet.</p>
+                        ) : (
+                            user.enrolledCourses.map((course) => (
+                                <div key={course._id} className="w-full md:max-w-sm">
+                                    <ContinueCourse course={course} />
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>

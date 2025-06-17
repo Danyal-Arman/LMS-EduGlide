@@ -12,8 +12,8 @@ const CreateLectures = () => {
 
     const [lectureTitle , setLectureTitle] = useState("")
     const [createLecture, {data, isLoading, isSuccess, error}] =useCreateLectureMutation(courseId);
-    const {data:lectureData, isLoading:LectureIsLoading, isSuccess:LectureIsSuccess, error:LectureError, refetch} = useGetLectureQuery(courseId, {refetchOnMountOrArgChange:true});
-
+    const {data:lectureData, isLoading:LectureIsLoading, isSuccess:LectureIsSuccess, error:LectureError} = useGetLectureQuery(courseId, {refetchOnMountOrArgChange:true});
+    
 
     const createLectureHandler = async()=>{
        await createLecture({lectureTitle, courseId})
@@ -30,10 +30,9 @@ if(error){
 
 }, [data, isSuccess, error])
   
-
   return (
 
-    <div className='w-[70%] px-10 my-2'>
+    <div className='max-w-7xl mx-auto px-10 my-2'>
       <div className='space-y-4'>
         <h1 className='text-2xl font-bold'>Hi,Danyal Arman </h1>
         <h1 className='text-xl font-semibold'>Add your lectures here below</h1>

@@ -15,8 +15,8 @@ if(isLoading)  return <CourseTableSkeleton/>
 
     return (
        
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-8 w-[85%] overflow-hidden">
-    <div className="max-w-6xl mx-auto">
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-8 w-full overflow-hidden">
+    <div className="w-full ">
         <div className="flex flex-wrap justify-between">
             <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 whitespace-normal break-normal">
                 Course Management

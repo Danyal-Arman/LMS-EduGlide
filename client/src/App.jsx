@@ -20,6 +20,8 @@ import SearchPage from './pages/student/SearchPage'
 import { AdminAcess, LoggedInUser, ProtectedRoute } from './components/ProtectedRoutes'
 import SecurePurchasedCourse from './components/SecurePurchasedCourse'
 import BecomeInstructor from './pages/admin/BecomeInstructor'
+import Features from './pages/student/Features'
+import Footer from './pages/student/Footer'
 
 
 function App() {
@@ -50,12 +52,16 @@ function App() {
           element: (
             <>
               <Hero />
+              <Features/>
               <Courses />
+              <Footer/>
+              
+
             </>)
         },
         {
           path: 'my-learning',
-          element: <ProtectedRoute><MyLearning /></ProtectedRoute>
+          element: <ProtectedRoute><MyLearning /><Footer/></ProtectedRoute>
         },
         {
           path: 'profile',
@@ -86,7 +92,7 @@ function App() {
         //admin routes
         {
           path: 'admin',
-          element: <AdminAcess><Sidebar /></AdminAcess>,
+          element: <AdminAcess><Sidebar/></AdminAcess>,
           children: [
             {
               path: 'dashboard',
