@@ -1,16 +1,8 @@
 import React from 'react';
 import {
   BookOpen,
-  Mail,
-  Phone,
-  MapPin,
-  Facebook,
-  Twitter,
   Github,
-  Instagram,
   Linkedin,
-  Youtube,
-  Heart
 } from 'lucide-react';
 
 const Footer = () => {
@@ -27,18 +19,17 @@ const Footer = () => {
     ],
 
     legal: [
-      { name: 'Privacy Policy', href: '#' },
-      { name: 'Terms of Service', href: '#' },
-      { name: 'Cookie Policy', href: '#' },
-      { name: 'Accessibility', href: '#' },
-      { name: 'Sitemap', href: '#' }
+      { name: 'Privacy Policy' },
+      { name: 'Terms of Service' },
+      { name: 'Cookie Policy' },
+      { name: 'Accessibility' },
+      { name: 'Sitemap' }
     ]
   };
 
   const socialLinks = [
-    { icon: Github, href: '#', name: 'Github' },
-    { icon: Linkedin, href: '#', name: 'LinkedIn' }, 
-    { icon: Instagram, href: '#', name: 'Instagaram' }, 
+    { icon: Github, href: 'https://github.com/Danyal-Arman', name: 'Github' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/danyal-arman', name: 'LinkedIn' }, 
   ];
 
   return (
