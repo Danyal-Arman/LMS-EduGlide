@@ -88,14 +88,11 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl hover:shadow-xl transition-all duration-300 group">
+              <button onClick={()=>navigate('/search-page?query')} className="flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl hover:shadow-xl transition-all duration-300 group">
                 <BookOpen className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
                 Start Learning Today
               </button>
-              <button className="flex items-center justify-center px-8 py-4 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-2xl hover:border-blue-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 group">
-                <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-                Watch Demo
-              </button>
+             
             </div>
 
             {/* Stats */}
