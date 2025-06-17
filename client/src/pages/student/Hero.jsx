@@ -91,8 +91,7 @@ const Hero = () => {
               <button onClick={()=>navigate('/search-page?query')} className="flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl hover:shadow-xl transition-all duration-300 group">
                 <BookOpen className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
                 Start Learning Today
-              </button>
-             
+              </button>             
             </div>
 
             {/* Stats */}
