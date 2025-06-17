@@ -1,5 +1,4 @@
-// hRf8CUn3jKSsFk5f
-// mongodb+srv://danyalarman15:hRf8CUn3jKSsFk5f@cluster0.qvb9q.mongodb.net/
+
 import express from "express"
 import ConnectDB from "./database/Database.js";
 import dotenv from "dotenv";
@@ -13,7 +12,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors"
 const app = express();
 
-app.use(express.static('public')); // Where 'public' is the folder containing static assets like your favicon.ico
+app.use(express.static('public')); 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
