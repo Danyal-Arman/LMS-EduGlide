@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.post("/register", registerUser)
 router.post("/login", loginUser)
-router.get("/logout", logoutUser)
+router.post("/logout", logoutUser)
 router.get("/profile", isLoggedIn, userProfile)
 router.put('/profile/update', isLoggedIn, upload.single('profilePhoto'), updateProfile)
 router.post('/logout', logoutUser)
