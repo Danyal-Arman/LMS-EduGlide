@@ -22,7 +22,7 @@ export const registerUser = async (req, res) => {
             return res.status(400).send({ message: "you already have an account" })
         };
         const hashedPassword = await bcrypt.hash(password, 10);
-  
+
         const newUser = new userModel({
             username,
             email: normalizedEmail,
@@ -32,21 +32,21 @@ export const registerUser = async (req, res) => {
         await newUser.save(); // is placed before sending the final response (res.status(201).json(...)) to ensure that the user is successfully saved to the database before sending a response.
 
         return res.status(201).cookie("token", token, {
-            httpOnly: true,secure: true, sameSite: "None",
+            httpOnly: true, secure: true, sameSite: "None",
             maxAge: 24 * 60 * 60 * 1000
         }).json({
             success: true,
             message: "Account Created succesfully"
-        });  
+        });
 
     } catch (error) {
         return res.status(500).json({
             success: false,
             message: 'Server error during registration'
-        })  
+        })
     }
 };
-       
+
 
 
 export const loginUser = async (req, res) => {
@@ -86,13 +86,18 @@ export const loginUser = async (req, res) => {
             message: 'Failed to login'
         })
     }
-}; 
+};
 
 
 
 export const logoutUser = async (req, res) => {
     try {
-       return res.status(200).cookie("token", "", { maxAge: 0 }).json({
+        return res.status(200).clearCookie("token", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
+            path: "/login",
+        }).json({
             success: true,
             message: "logout successfully"
         })
@@ -106,48 +111,48 @@ export const logoutUser = async (req, res) => {
 
 
 
-export const userProfile = async(req, res) =>{
-try {
-    const userId = req.body.id;
-    const user = await userModel.findById(userId).select("-password").populate({
-        path: "enrolledCourses",  
-        populate: {
-            path: "creator",  
-            select: "username photo " 
+export const userProfile = async (req, res) => {
+    try {
+        const userId = req.body.id;
+        const user = await userModel.findById(userId).select("-password").populate({
+            path: "enrolledCourses",
+            populate: {
+                path: "creator",
+                select: "username photo "
+            }
+        });
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            })
+
         }
-    });
-    if(!user){
-        return res.status(404).json({
+        const actually = await userModel.findOne({ _id: userId }, { enrolledCourses: 1 })
+
+        return res.status(200).json({
+            success: true,
+            user,
+        });
+
+
+    } catch (error) {
+        return res.status(500).json({
             success: false,
-            message: "User not found"
-        }) 
-
+            message: 'Failed to get user profile'
+        })
     }
-    const actually  = await userModel.findOne({ _id: userId }, { enrolledCourses: 1 })
+}
 
-    return res.status(200).json({
-        success:true,
-        user,
-    });
- 
-     
-} catch (error) {
-    return res.status(500).json({
-        success: false, 
-        message: 'Failed to get user profile'
-    })
-}
-}
- 
-export const  updateProfile = async(req,res)=>{
-    try {   
+export const updateProfile = async (req, res) => {
+    try {
 
         const userId = req.body.id
-        const {username, role} = req.body
+        const { username, role } = req.body
         const profilePhoto = req.file;
- 
-        const user =await userModel.findById(userId)
-        if(!user){
+
+        const user = await userModel.findById(userId)
+        if (!user) {
             return res.status(404).json({
                 success: false,
                 message: "User not found"
@@ -155,35 +160,34 @@ export const  updateProfile = async(req,res)=>{
         }
         // so we need to upload photo on cloudinary then the photoUrl get existed 
         //Extracting public id of old image from the database photo, if it existed
-       if(!profilePhoto){
+        if (!profilePhoto) {
 
-           if(user.photo){
-             const publicId = user.photo.split('/').pop().split(".")[0]; // extract public id
-             deletePhotoFromCloudinary(publicId) //deletion from cloudinary not from database
-           } 
-       }
-        
-       
+            if (user.photo) {
+                const publicId = user.photo.split('/').pop().split(".")[0]; // extract public id
+                deletePhotoFromCloudinary(publicId) //deletion from cloudinary not from database
+            }
+        }
+
+
         //upload new photo
         const cloudRes = await uploadMedia(profilePhoto?.path)
         const photo = cloudRes?.secure_url
-    
-      
-        const UpdatePfp = {username, photo, role}
-     
-        const updatedUserPfp = await userModel.findByIdAndUpdate(userId,UpdatePfp  , {new: true} ).select("-password") //{new: true} taake saari chize updated dikhe
+
+
+        const UpdatePfp = { username, photo, role }
+
+        const updatedUserPfp = await userModel.findByIdAndUpdate(userId, UpdatePfp, { new: true }).select("-password") //{new: true} taake saari chize updated dikhe
         return res.status(200).json({
-            success:true,
-            user:updatedUserPfp,
-            message:"profile updated successfully"
+            success: true,
+            user: updatedUserPfp,
+            message: "profile updated successfully"
         });
     }
-     catch (error) {
+    catch (error) {
         return res.status(500).json({
-            success:false,
+            success: false,
             message: 'Failed to update profile'
         })
     }
 
 }
- 
