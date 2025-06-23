@@ -48,7 +48,7 @@ if(logOutError){
               <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 EduGlide
               </span>
-              <span className="text-xs text-gray-500 -mt-1 whitespace-normal break-all">
+              <span className="text-xs text-gray-500 -mt-1 whitespace-normal break-words">
                 Learning Management
               </span>
             </div>
@@ -62,11 +62,11 @@ if(logOutError){
    {!data?.user ? (
     <div className={ `mt-1`}>
           <div className=' flex space-x-3'>
-            <ul className='flex space-x-3'>
-              <li className='px-3 py-1 border border-white rounded-md dark:hover:bg-gray-800'>
+            <ul className='flex flex-wrap justify-end'>
+              <li className='px-4 py-1 border-white rounded-md dark:hover:bg-gray-800'>
                 <a href="/login">Login</a>
               </li>
-              <li className='px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors'>
+              <li className='px-4 py-1 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors'>
                 <a href="/register">SignUp</a>
               </li>
             </ul>
@@ -76,7 +76,7 @@ if(logOutError){
           </div>
           </div>):
 
- ( <div onClick={() => setNavbarIsOpen((prev) => (!prev))} className='relative hidden sm:block'>
+ ( <> <div onClick={() => setNavbarIsOpen((prev) => (!prev))} className='relative hidden sm:block'>
            {/* Desktop dropdown */}
             <Avatar className="hover:cursor-pointer">
               <AvatarImage src={data?.user?.photo || "https://github.com/shadcn.png"} className="object-cover"/>
@@ -105,12 +105,12 @@ if(logOutError){
                 </button>
               </div>
             }
-          </div>)}
+          </div>
        
         {/*Mobile Navbar */}
         <button 
         onClick={() => { setSidebarIsOpen(true) }}><AlignJustify className="w-fit h-13  pr-3 text-purple-600  sm:hidden  " />
-        </button>
+        </button></>)}
         </section>
 
       </nav>
