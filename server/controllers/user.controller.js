@@ -32,7 +32,8 @@ export const registerUser = async (req, res) => {
         await newUser.save(); // is placed before sending the final response (res.status(201).json(...)) to ensure that the user is successfully saved to the database before sending a response.
 
         return res.status(201).cookie("token", token, {
-            httpOnly: true, secure: true, domain: ".onrender.com", sameSite: "None",
+            httpOnly: true, secure: true,  sameSite: "None",
+            domain: ".onrender.com", path: "/",
             maxAge: 24 * 60 * 60 * 1000
         }).json({
             success: true,
@@ -75,7 +76,7 @@ export const loginUser = async (req, res) => {
         }
         else {
             let token = generateToken(user);
-            res.status(200).cookie("token", token, { httpOnly: true, secure: true, domain: ".onrender.com", sameSite: "None", maxAge: 24 * 60 * 60 * 1000 }).json({
+            res.status(200).cookie("token", token, { httpOnly: true, secure: true, sameSite: "None", domain: ".onrender.com", path:"/", maxAge: 24 * 60 * 60 * 1000 }).json({
                 success: true,
                 message: `Welcome back ${user.username}`
             })
@@ -90,14 +91,14 @@ export const loginUser = async (req, res) => {
 
 
 
-export const logoutUser = async (req, res) => {
+export const logoutUser = async (_, res) => {
     try {
         return res.status(200).clearCookie("token", {
             httpOnly: true,
             secure: true,
             sameSite: "None",
             domain: ".onrender.com",
-            path: "/login",
+            path: "/",
         }).json({
             success: true,
             message: "logout successfully"
