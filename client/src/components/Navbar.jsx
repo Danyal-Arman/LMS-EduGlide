@@ -19,7 +19,6 @@ const Navbar = () => {
 
 const logoutHandler= async()=>{
 await logOutUser();
-window.location.href = "/login";
 }
 
   useEffect(() => {
