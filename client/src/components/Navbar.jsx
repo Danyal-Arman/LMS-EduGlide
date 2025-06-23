@@ -14,23 +14,26 @@ const Navbar = () => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const navigate = useNavigate();
   const {data} = useGetUserQuery();
-  const [logOutUser, {data:logOutData , isSuccess:logOutIsSuccess, isError:logOutError}] = useLogOutUserMutation()
+  const [logOutUser, {data:logOutData , isSuccess:logOutIsSuccess,  isError: logOutIsError,
+  error: logOutErrorData}] = useLogOutUserMutation()
   
 
 const logoutHandler= async()=>{
 await logOutUser();
 }
 
-  useEffect(() => {
-if(logOutIsSuccess){
-  toast.success(logOutData.message || "Logout successfully")
-  navigate('/login')
-}  
-if(logOutError){
-  toast.error(logOutData.message || "Logout failed")
-}  
+useEffect(() => {
+  if (logOutIsSuccess && logOutData?.message) {
+    toast.success(logOutData.message);
+    navigate('/login');
+  }
 
-  }, [logOutIsSuccess, logOutError, logOutUser])
+  if (logOutIsError && logOutErrorData?.data?.message) {
+    toast.error(logOutErrorData.data.message);
+  } else if (logOutIsError) {
+    toast.error("Logout failed");
+  }
+}, [logOutIsSuccess, logOutIsError, logOutData, logOutErrorData, navigate]);
 
 
   return (
