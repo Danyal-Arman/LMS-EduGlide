@@ -38,10 +38,9 @@ const userApi = createApi({
             }
         }),
         LogOutUser:builder.mutation({
-            query: (logoutInfo) => ({
+            query: () => ({
                 url: 'logout',
-                method: 'GET',
-                body: logoutInfo,
+                method: 'POST',
                 }),
                 async onQueryStarted(_, { queryFulfilled, dispatch }) {
                     try {
@@ -50,7 +49,7 @@ const userApi = createApi({
                     } catch (error) {
                         console.log(error)
                     }
-                } 
+                } ,
         }),
         getUser: builder.query({
             query: () => ({
