@@ -33,7 +33,7 @@ export const registerUser = async (req, res) => {
 
         return res.status(201).cookie("token", token, {
             httpOnly: true, secure: true,  sameSite: "None",
-            domain: ".onrender.com", path: "/",
+            path: "/",  
             maxAge: 24 * 60 * 60 * 1000
         }).json({
             success: true,
@@ -76,7 +76,7 @@ export const loginUser = async (req, res) => {
         }
         else {
             let token = generateToken(user);
-            res.status(200).cookie("token", token, { httpOnly: true, secure: true, sameSite: "None", domain: ".onrender.com", path:"/", maxAge: 24 * 60 * 60 * 1000 }).json({
+            res.status(200).cookie("token", token, { httpOnly: true, secure: true, sameSite: "None", path:"/", maxAge: 24 * 60 * 60 * 1000 }).json({
                 success: true,
                 message: `Welcome back ${user.username}`
             })
@@ -97,7 +97,6 @@ export const logoutUser = async (_, res) => {
             httpOnly: true,
             secure: true,
             sameSite: "None",
-            domain: ".onrender.com",
             path: "/",
         }).json({
             success: true,
