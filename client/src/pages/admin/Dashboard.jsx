@@ -74,11 +74,11 @@ const Dashboard = () => {
     return acc + (currentval.amount || 0)
   }, 0)
 
-  const mergedData = adminCourseData.data.map((user) => {
-    const userProgress = progressData.find( // progressdata(progresspercentage) hr user ke lye find kr rahe
+  const mergedData = adminCourseData?.data?.map((user) => {
+    const userProgress = progressData?.find( // progressdata(progresspercentage) hr user ke lye find kr rahe
       (item) =>
-        (item.userId) === (user.userId._id) &&
-        (item.courseId) === (user.courseId._id)
+        (item.userId) === (user.userId?._id) &&
+        (item.courseId) === (user.courseId?._id)
 
 
     );
@@ -91,7 +91,7 @@ const Dashboard = () => {
     };
   });
 
-
+console.log("this is admincoursedata",adminCourseData)
 
   return (
     <div className="min-h-screen w-full mx-auto  bg-gray-50/50 dark:bg-gray-900 p-8">
