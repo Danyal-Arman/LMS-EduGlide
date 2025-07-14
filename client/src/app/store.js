@@ -14,9 +14,9 @@ export const appStore = configureStore({
     middleware: (getDefaultMiddleware) => //agr middleware nhi hoga to Rtk query kaam hi nhi krega /(getDefaultMiddleware) ye ek callback function h naam kuch bi hosakta h //  middleware from RTK Query (userApi, courseApi, etc.), which helps in handling API requests.
         getDefaultMiddleware().concat(userApi.middleware, courseApi.middleware, lectureApi.middleware, paymentApi.middleware, courseProgressApi.middleware),
 });
-const initializeApp = async()=>{
-    await appStore.dispatch(userApi.endpoints.getUser.initiate({}, { forceRefetch: true }));
+// const initializeApp = async()=>{
+//      appStore.dispatch(userApi.endpoints.getUser.initiate({}, { forceRefetch: true }));
 
-}
-initializeApp();     
+// }
+// initializeApp();     
 

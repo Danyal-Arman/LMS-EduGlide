@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, BookOpen, Play, Users, Award } from "lucide-react";
+import { Search, BookOpen, Users, Award } from "lucide-react";
 
 const Hero = () => {
   const [query, setQuery] = useState("");
@@ -25,7 +25,7 @@ const Hero = () => {
       const timeout = setTimeout(() => {
         setDisplayedText((prev) => prev + fullText[index]);
         setIndex((prev) => prev + 1);
-      }, 40);
+      }, 60);
       return () => clearTimeout(timeout);
     }
   }, [index, fullText]);

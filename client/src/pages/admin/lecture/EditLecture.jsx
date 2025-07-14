@@ -8,7 +8,7 @@ import { Progress } from "@/components/ui/progress"
 import axios from 'axios';
 
 
-const MEDIA_API = "http://localhost:3000/media"
+const MEDIA_API = "http://localhost:8080/media"
 
 const EditLecture = () => {
     const [lectureTitle, setLectureTitle] = useState("");
@@ -36,6 +36,7 @@ const EditLecture = () => {
         setMediaProgress(true);
 
         try {
+
             const res = await axios.post(`${MEDIA_API}/upload-video`, formData, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`, // Ensure token is stored
@@ -60,7 +61,7 @@ const EditLecture = () => {
                 toast.error("Failed to upload video")
             }
         } catch (error) {
-            console.error("Upload error:", error.response?.data || error.message || error);
+
             toast.error("Server error failed to upload video")
         }
         finally {

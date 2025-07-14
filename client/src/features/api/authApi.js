@@ -3,6 +3,7 @@ import { userLoggedIn, userLoggedOut } from '../authSlice';
 
 const USER_API = "https://eduglide-server.onrender.com/user/"
 
+
 const userApi = createApi({
     reducerPath: "userApi",
     tagTypes:["User"],
@@ -43,6 +44,7 @@ const userApi = createApi({
                 method: 'POST',
                 }),
                 async onQueryStarted(_, { queryFulfilled, dispatch }) {
+
                     try {
                         await queryFulfilled;
                         dispatch(userLoggedOut())
@@ -57,7 +59,9 @@ const userApi = createApi({
                 method: 'GET',
             }),
             providesTags: ['User'],
+            keepUnusedDataFor:60,
             async onQueryStarted(_, { queryFulfilled, dispatch }) {
+                 
                 try {
                     const result = await queryFulfilled;
                      dispatch(userLoggedIn( {user:result.data.user} ))// {user:result.data.user} yaha user ka data aayega name: , email, password, id and more
@@ -72,7 +76,6 @@ const userApi = createApi({
                 url: 'profile/update',
                 method: 'PUT',
                 body:formData,
-                credentials:"include"
 
             }),
             invalidatesTags:['User']

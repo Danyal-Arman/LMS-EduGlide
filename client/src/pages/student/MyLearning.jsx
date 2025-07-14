@@ -1,10 +1,8 @@
 import { Clock, PlayCircle, TrendingUp, BookmarkCheck, BarChart3 } from "lucide-react";
 import CourseCardSkeleton from "@/components/CourseCardSkeleton";
 import ContinueCourse from "./ContinueCourse";
-import { useGetUserQuery } from "@/features/api/authApi";
-const MyLearning = () => {
+const MyLearning = ({data, isLoading}) => {
   const myCourses = true;
-  const { data, isLoading, refetch } = useGetUserQuery();  // for query{} is used , for mutation []is used
 
   if (isLoading) {
     return (

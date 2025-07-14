@@ -12,7 +12,6 @@ const RichTextEditor = ({ courseInput, setCourseInput }) => {
   };
 
   return <ReactQuill
-    ref={ref}
     theme="snow"
     value={courseInput.description}  
     onChange={onChange} />;

@@ -25,7 +25,7 @@ import Footer from './pages/student/Footer'
 
 
 function App() {
-  const { isLoading } = useGetUserQuery();
+  const {data:profileData, isLoading, refetch } = useGetUserQuery( );
   if (isLoading)
     return (
       <div className="flex justify-center items-center min-h-screen font-montserrat">
@@ -33,7 +33,7 @@ function App() {
         <div className="relative h-[37px] w-[15px]">
           <div className="absolute top-0 w-[15px] h-[15px] bg-[#fbae17] rounded-full animate-bounceball"></div>
         </div>
-        <div className="text-[#fbae17] ml-2">NOW LOADING</div>
+        <div className="text-[#fbae17] ml-2">NOW LOADING </div>
       </div>
     </div>
     
@@ -45,7 +45,7 @@ function App() {
   const appRouter = createBrowserRouter([
     {
       path: '/',
-      element: <MainLayout />,
+      element: <MainLayout data={profileData}/>,
       children: [
         {
           path: '/',
@@ -61,11 +61,11 @@ function App() {
         },
         {
           path: 'my-learning',
-          element: <ProtectedRoute><MyLearning /><Footer/></ProtectedRoute>
+          element: <ProtectedRoute><MyLearning data={profileData} isLoading={isLoading}/><Footer/></ProtectedRoute>
         },
         {
           path: 'profile',
-          element: <ProtectedRoute><Profile /></ProtectedRoute>
+          element: <ProtectedRoute><Profile data={profileData} isLoading={isLoading} refetch={refetch}/></ProtectedRoute>
         },
         {
           path: 'instructor',

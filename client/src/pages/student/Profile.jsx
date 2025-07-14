@@ -8,12 +8,12 @@ import {
 
 } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
-import { useGetUserQuery, useUpdateUserProfileMutation } from '@/features/api/authApi';
+import { useUpdateUserProfileMutation } from '@/features/api/authApi';
 import ContinueCourse from './ContinueCourse';
 
-function Profile() {
-    const { data, isLoading, refetch } = useGetUserQuery({ refetchOnMountOrArgChange: true });  // for query{} is used , for mutation []is used
-    const [updateUserProfile, { data: profileData, isSuccess: profileIsSucess, error: profileError, }] = useUpdateUserProfileMutation();
+function Profile({data, isLoading, refetch}) {
+    // const { data, isLoading, refetch } = useGetUserQuery({ refetchOnMountOrArgChange: true });  // for query{} is used , for mutation []is used
+    const [updateUserProfile, { data: profileData, isSuccess: profileIsSucess, error: profileError }] = useUpdateUserProfileMutation();
 
     const [profile, setProfile] = useState(null)
     const [isEditing, setIsEditing] = useState(false);
@@ -23,23 +23,23 @@ function Profile() {
 
 
 
-
     useEffect(() => {
         if (data?.user) {
             const userProfile = {
                 username: data.user.username,
                 email: data.user.email,
                 role: data.user.role,
+                photo: data.user.photo,
                 id: data.user._id
             };
             setProfile(userProfile);
             setPrevProfile(userProfile);
         }
-    }, [data])
+    }, [data?.user])
 
     useEffect(() => {
         if (profileError) {
-            toast.error(profileError.profileData.message || "Profile update failed")
+            toast.error(profileError.data.message || "Profile update failed")
         }
         if (profileIsSucess) {
             toast.success(profileData.message || `Profile updated successfuy`)
@@ -48,8 +48,7 @@ function Profile() {
 
 
     }, [profileIsSucess, profileError])
-
-
+;
 
 
 
@@ -95,15 +94,16 @@ function Profile() {
 
     const handlSave = async () => {
         updateUser();
+      const refetched =  await refetch()
         setIsEditing(false);
 
     }
     const handleCancel = () => {
         setIsEditing(false)
         setProfile(prevProfile);
-
+ 
     }
-    const user = data && data.user;
+    const user =  data?.user;
 
     return (
         <div className="max-w-7xl min-h-screen mx-auto px-4 sm:px-6 gap-10 ">
@@ -125,7 +125,7 @@ function Profile() {
                         <div className='flex flex-col items-center space-y-2 '>
                             <div className='relative'>
                                 <Avatar className="hover:cursor-pointer ">
-                                    <AvatarImage src={user?.photo || "https://github.com/shadcn.png"} className='h-24 rounded-full object-cover w-24' alt="Avatar" />
+                                    <AvatarImage key={user?.photo} src={user?.photo || "https://github.com/shadcn.png"} className='h-24 rounded-full object-cover w-24' alt="Avatar" />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
                                 <input accept='image/*' ref={fileReference} type="file" className='hidden' onChange={handleProfilePhoto} />

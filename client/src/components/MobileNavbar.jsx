@@ -70,7 +70,7 @@ const MobileNavBar = ({ sidebarIsOpen, setSidebarIsOpen, myThemeToggle, theme, l
             </li>
             <li className="hover:text-gray-400 cursor-pointer flex gap-2">
               <BookOpen />
-              <Link to="/my-learning">My courses</Link>
+              <Link to="/my-learning">My Learning</Link>
             </li>
            
 

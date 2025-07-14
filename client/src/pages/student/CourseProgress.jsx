@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 
-import { PlayCircle, LockIcon, Check, CheckSquare2, CheckCircle } from 'lucide-react'
+import { PlayCircle, CheckCircle } from 'lucide-react'
 import { useState } from 'react'
 import { useCourseCompleteMutation, useCourseInCompleteMutation, useGetCourseProgressQuery, useUpdateLectureProgressMutation } from '@/features/api/courseProgress'
 import { useParams } from 'react-router-dom'

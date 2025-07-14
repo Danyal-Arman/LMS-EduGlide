@@ -13,7 +13,7 @@ const Navbar = () => {
   const [navbarIsOpen, setNavbarIsOpen] = useState(false)
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const navigate = useNavigate();
-  const {data} = useGetUserQuery();
+  const {data} = useGetUserQuery( );
   const [logOutUser, {data:logOutData , isSuccess:logOutIsSuccess,  isError: logOutIsError,
   error: logOutErrorData}] = useLogOutUserMutation()
   
@@ -117,7 +117,7 @@ useEffect(() => {
         </section>
 
       </nav>
-      <MobileNavBar sidebarIsOpen={sidebarIsOpen} setSidebarIsOpen={setSidebarIsOpen} myThemeToggle={myThemeToggle} theme={theme} logoutHandler={logoutHandler}  />
+      <MobileNavBar sidebarIsOpen={sidebarIsOpen} setSidebarIsOpen={setSidebarIsOpen} myThemeToggle={myThemeToggle} theme={theme} logoutHandler={logoutHandler} data={data} />
 
     </header>
   )
