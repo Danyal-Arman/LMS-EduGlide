@@ -2,7 +2,6 @@ import express from "express"
 import  isLoggedIn  from "../middleware/isLoggedIn.js"
 import upload from "../utils/multer.js"
 import { createCourse, getAdminCourses, editAdminCourses, getCourseById, togglePublishCourse, removeCourse, getPublishedCourse, searchCourse, courseRatingAndReview, getUserCourseRatingById, getCourseAllReviewsAndRatings } from "../controllers/course.controller.js"
-import route from "./courseProgress.route.js"
 const router = express.Router()
 
 router.post("/",isLoggedIn, createCourse)
