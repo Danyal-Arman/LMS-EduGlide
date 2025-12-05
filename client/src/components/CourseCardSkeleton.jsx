@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 const CourseCardSkeleton = ()=> {
   return (
     <Card className=" w-[280px] md:w-[330px] lg:w-[300px]">

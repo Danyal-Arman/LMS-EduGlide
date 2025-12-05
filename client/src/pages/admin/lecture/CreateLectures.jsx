@@ -1,5 +1,5 @@
 import { useCreateLectureMutation, useGetLectureQuery } from '@/features/api/lectureApi';
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner';
@@ -11,8 +11,8 @@ const CreateLectures = () => {
     const courseId = params.courseId;
 
     const [lectureTitle , setLectureTitle] = useState("")
-    const [createLecture, {data, isLoading, isSuccess, error}] =useCreateLectureMutation(courseId);
-    const {data:lectureData, isLoading:LectureIsLoading, isSuccess:LectureIsSuccess, error:LectureError} = useGetLectureQuery(courseId, {refetchOnMountOrArgChange:true});
+    const [createLecture, {data, isSuccess, error}] =useCreateLectureMutation(courseId);
+    const {data:lectureData, isLoading:LectureIsLoading, error:LectureError} = useGetLectureQuery(courseId, {refetchOnMountOrArgChange:true});
     
 
     const createLectureHandler = async()=>{

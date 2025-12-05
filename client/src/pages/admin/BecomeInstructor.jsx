@@ -1,5 +1,3 @@
-import React from 'react';
-
 const BecomeInstructor = () => {
   return (
     <div className="max-w-3xl mx-auto p-6 text-gray-800 dark:text-gray-100 transition-colors duration-300">
@@ -14,7 +12,9 @@ const BecomeInstructor = () => {
       </section>
 
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-800 dark:text-blue-300">Benefits</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-800 dark:text-blue-300">
+          Benefits
+        </h2>
         <ul className="list-disc list-inside space-y-2 text-lg">
           <li>Flexible teaching</li>
           <li>Large audience reach</li>
@@ -23,7 +23,9 @@ const BecomeInstructor = () => {
       </section>
 
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-800 dark:text-blue-300">Responsibilities</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-800 dark:text-blue-300">
+          Responsibilities
+        </h2>
         <ul className="list-disc list-inside space-y-2 text-lg">
           <li>Create and publish high-quality, engaging course content</li>
           <li>Update course materials to keep content relevant</li>
@@ -34,7 +36,9 @@ const BecomeInstructor = () => {
       </section>
 
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-800 dark:text-blue-300">Requirements</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-800 dark:text-blue-300">
+          Requirements
+        </h2>
         <ul className="list-disc list-inside space-y-2 text-lg">
           <li>Expertise in your field</li>
           <li>Passion for teaching</li>
@@ -42,21 +46,35 @@ const BecomeInstructor = () => {
       </section>
 
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-800 dark:text-blue-300">How It Works</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-800 dark:text-blue-300">
+          How It Works
+        </h2>
         <ol className="list-decimal list-inside space-y-2 text-lg">
-          <li className='dark:text-yellow-500  text-red-500 '>Visit your Profile Page !</li>
-          <li  className='dark:text-yellow-500 text-red-500  '>Edit to become an Instructor from Student !</li>
-          <li className='dark:text-yellow-500 text-red-500  '>Start publishing your courses !</li>
+          <li className="dark:text-yellow-500  text-red-500 ">
+            Visit your Profile Page !
+          </li>
+          <li className="dark:text-yellow-500 text-red-500  ">
+            Edit to become an Instructor from Student !
+          </li>
+          <li className="dark:text-yellow-500 text-red-500  ">
+            Start publishing your courses !
+          </li>
         </ol>
       </section>
 
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-800 dark:text-blue-300">Instructor Support</h2>
-        <p className="text-lg">Course builder, modern dashboard, and marketing help.</p>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-800 dark:text-blue-300">
+          Instructor Support
+        </h2>
+        <p className="text-lg">
+          Course builder, modern dashboard, and marketing help.
+        </p>
       </section>
 
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-800 dark:text-blue-300">Monetization</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-blue-800 dark:text-blue-300">
+          Monetization
+        </h2>
         <p className="text-lg">Earn revenue with transparent payouts.</p>
       </section>
 

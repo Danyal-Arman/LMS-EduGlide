@@ -1,9 +1,7 @@
 import { Badge } from "@/components/ui/badge";
-import React from "react";
 import { Link } from "react-router-dom";
 
 const SearchedCourse = ({ course }) => {
-
   return (
     <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-300  py-4 gap-4">
       <Link
@@ -17,9 +15,13 @@ const SearchedCourse = ({ course }) => {
         />
         <div className="flex flex-col gap-2">
           <h1 className="font-bold text-lg md:text-xl">{course.courseTitle}</h1>
-          <p className="text-sm text-gray-600 dark:text-gray-100"> {course.subTitle}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-100">
+            {" "}
+            {course.subTitle}
+          </p>
           <p className="text-sm text-gray-700 dark:text-gray-100">
-            Intructor: <span className="font-bold">{course.creator?.username}</span>{" "}
+            Intructor:{" "}
+            <span className="font-bold">{course.creator?.username}</span>{" "}
           </p>
           <Badge className="w-fit mt-2 md:mt-0">{course.courseLevel}</Badge>
         </div>

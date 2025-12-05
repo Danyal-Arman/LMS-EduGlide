@@ -1,6 +1,6 @@
-import { useGetLectureByIdQuery, useGetLectureQuery, useRemoveLectureMutation, useUpdateLectureMutation } from '@/features/api/lectureApi';
-import { ArrowLeft, ArrowRight, Loader2 } from 'lucide-react';
-import React, { useEffect, useState } from 'react'
+import { useGetLectureByIdQuery, useRemoveLectureMutation, useUpdateLectureMutation } from '@/features/api/lectureApi';
+import { ArrowLeft, Loader2 } from 'lucide-react';
+import { useEffect, useState } from 'react'
 import { toast } from 'sonner';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Switch } from "@/components/ui/switch"
@@ -61,7 +61,7 @@ const EditLecture = () => {
                 toast.error("Failed to upload video")
             }
         } catch (error) {
-
+            console.log(error);
             toast.error("Server error failed to upload video")
         }
         finally {

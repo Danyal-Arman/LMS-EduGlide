@@ -1,134 +1,124 @@
-import React, { useEffect, useState } from 'react';
-import { Area, AreaChart, ResponsiveContainer } from 'recharts';
+import { useEffect, useState } from "react";
+import { Area, AreaChart, ResponsiveContainer } from "recharts";
 import { Progress } from "@/components/ui/progress";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useGetAdminCoursePurchasedQuery, useGetAllPurchasedCourseQuery, useGetPurchasedCourseStatusQuery } from '@/features/api/paymentApi';
-import { useGetCoursesQuery } from '@/features/api/courseApi';
-import { useTheme } from '@/context/themeContext';
-import { useSelector } from 'react-redux';
-import { Skeleton } from "@/components/ui/skeleton"
-import { Card, CardContent } from "@/components/ui/card"
-
+import { useGetAdminCoursePurchasedQuery } from "@/features/api/paymentApi";
+import { useGetCoursesQuery } from "@/features/api/courseApi";
+import { useTheme } from "@/context/themeContext";
+import { useSelector } from "react-redux";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent } from "@/components/ui/card";
+import SeoAvatar from "@/components/SeoAvatar";
 
 const miniChartData = [
-  { value: 10 }, { value: 15 }, { value: 12 }, { value: 18 }, { value: 14 }, { value: 19 }
+  { value: 10 },
+  { value: 15 },
+  { value: 12 },
+  { value: 18 },
+  { value: 14 },
+  { value: 19 },
 ];
 
 const Dashboard = () => {
   const [progressData, setProgressData] = useState([]);
-  const { theme } = useTheme()
+  const { theme } = useTheme();
 
-
-  const { data } = useGetCoursesQuery()
-  const { data: adminCourseData, isLoading: adminCourseIsLoading } = useGetAdminCoursePurchasedQuery()
-  const { user } = useSelector((state => state.auth))
-
+  const { data } = useGetCoursesQuery();
+  const { data: adminCourseData, isLoading: adminCourseIsLoading } =
+    useGetAdminCoursePurchasedQuery();
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (adminCourseData && data) {
-
-      const allCourses = data?.course
-      const progress = adminCourseData?.courseProgress
+      const allCourses = data?.course;
+      const progress = adminCourseData?.courseProgress;
 
       const result = progress.map((item) => {
-        const course = allCourses.find((cou) => cou._id === item.courseId)
-
+        const course = allCourses.find((cou) => cou._id === item.courseId);
 
         if (!course || !course.lectures) {
-          return { ...item, progressPercentage: "0%" }
+          return { ...item, progressPercentage: "0%" };
         }
 
-        const totalLectures = course.lectures.length
-        const completedLectures = item.lectureProgress.length
+        const totalLectures = course.lectures.length;
+        const completedLectures = item.lectureProgress.length;
 
-        const totalPercentage = ((completedLectures / totalLectures) * 100).toFixed(2)
+        const totalPercentage = (
+          (completedLectures / totalLectures) *
+          100
+        ).toFixed(2);
 
         return {
           ...item,
-          progressPercentage: `${totalPercentage}%`
-        }
-      })
-
-      setProgressData((e) => {
-        return result;
+          progressPercentage: `${totalPercentage}%`,
+        };
       });
 
+      setProgressData(() => {
+        return result;
+      });
     }
+  }, [data, adminCourseData]);
 
-  }, [data, adminCourseData])
+  useEffect(() => {}, [progressData]);
 
-  useEffect(() => {
-  }, [progressData]);
-
-
-  if (adminCourseIsLoading) return <AdminDashboardSkeleton/>
-
-
-
-  const totalStudents = adminCourseData.data.reduce((total, item) => {
-    return total + (item.courseId.enrolledStudents?.length || 0)
-  }, 0)
-
+  if (adminCourseIsLoading) return <AdminDashboardSkeleton />;
 
   const totalRevenue = adminCourseData.data.reduce((acc, currentval) => {
-    return acc + (currentval.amount || 0)
-  }, 0)
+    return acc + (currentval.amount || 0);
+  }, 0);
 
   const mergedData = adminCourseData?.data?.map((user) => {
-    const userProgress = progressData?.find( // progressdata(progresspercentage) hr user ke lye find kr rahe
+    const userProgress = progressData?.find(
+      // progressdata(progresspercentage) hr user ke lye find kr rahe
       (item) =>
-        (item.userId) === (user.userId?._id) &&
-        (item.courseId) === (user.courseId?._id)
-
-
+        item.userId === user.userId?._id && item.courseId === user.courseId?._id
     );
 
     return {
       ...user,
       progressPercentage: userProgress
         ? parseFloat(userProgress.progressPercentage)
-        : 0, 
+        : 0,
     };
   });
 
-console.log("this is admincoursedata",adminCourseData)
-
   return (
     <div className="min-h-screen w-full mx-auto  bg-gray-50/50 dark:bg-gray-900 p-8">
-      <div className=''>
+      <div className="">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <div className='whitespace-normal break-all'>
-            <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-200 whitespace-normal break-all">Welcome Back, {user.username} 👋</h1>
-            <p className="text-gray-500 dark:text-gray-200 mt-1">Track your performance and schedule</p>
+          <div className="whitespace-normal break-all">
+            <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-200 whitespace-normal break-all">
+              Welcome Back, {user.username} 👋
+            </h1>
+            <p className="text-gray-500 dark:text-gray-200 mt-1">
+              Track your performance and schedule
+            </p>
           </div>
-          
         </div>
 
         {/* Main Grid */}
-        <div className="grid grid-cols-10  gap-6 ">
+        <div className="grid grid-cols-10 gap-6 ">
           {/* Performance Card */}
-          <div className="col-span-10  xl:col-span-4">
-            <div className='border dark:bg-gray-800 shadow-md rounded-md px-3 sm:px-7 py-4 max-h-[450px] overflow-y-auto '>
-              <div className='flex text-gray-500 tracking-tight items-center justify-between  '>
-                <h2 className='dark:text-gray-200'>Learners Progress</h2>
-                <h2 className='dark:text-gray-200'>Top Performace </h2>
+          <div className="col-span-10 xl:col-span-8 ">
+            <div className="border dark:bg-gray-800 shadow-md rounded-xl px-6 sm:px-7 py-6 max-h-[450px] overflow-y-scroll glass-scrollbar">
+              <div className="flex text-gray-500 tracking-tight items-center justify-between  ">
+                <h2 className="dark:text-gray-200">Learners Progress</h2>
+                <h2 className="dark:text-gray-200">Top Performace </h2>
               </div>
-
-
-
 
               {mergedData.length > 0 ? (
                 <div className="flex flex-col space-y-5">
                   {mergedData.map((user) => (
                     <div key={user._id} className="flex items-center gap-2">
-                      <Avatar className="hover:cursor-pointer top-3">
-                        <AvatarImage
-                          src={user.userId?.photo || "https://github.com/shadcn.png"}
-                          className="h-10 w-10 rounded-full object-cover"
-                        />
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar>
+                      <SeoAvatar
+                        src={
+                          user.userId?.photo || "https://github.com/shadcn.png"
+                        }
+                        name={user.userId?.username}
+                        size={40}
+                        fallbackText="CN"
+                      />
                       <div className="flex flex-col space-y-2 w-full">
                         <h2 className="flex justify-between">
                           {user.userId?.username || "Unknown User"}
@@ -143,27 +133,29 @@ console.log("this is admincoursedata",adminCourseData)
                   ))}
                 </div>
               ) : (
-                <p className='text-red-500'>No Learners progress till now !</p>
+                <p className="text-red-500">No Learners progress till now !</p>
               )}
-
-
-
             </div>
           </div>
 
           {/* Statistics */}
-          <div className="col-span-10 xl:col-span-6 space-y-6">
+          <div className="col-span-10 xl:col-span-8 space-y-6">
             <div className="grid sm:grid-cols-2  gap-6">
-
               {/* Total Sales*/}
               <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-semibold dark:text-amber-500">Total Sales</h3>
+                  <h3 className="font-semibold dark:text-amber-500">
+                    Total Sales
+                  </h3>
                 </div>
                 <div className="flex items-end justify-between">
                   <div>
-                    <div className="text-2xl font-bold text-gray-900 dark:text-amber-300">{adminCourseData.data.length}</div>
-                    <p className="text-sm text-gray-500 dark:text-amber-500">45% Increase than before</p>
+                    <div className="text-2xl font-bold text-gray-900 dark:text-amber-300">
+                      {adminCourseData.data.length}
+                    </div>
+                    <p className="text-sm text-gray-500 dark:text-amber-500">
+                      45% Increase than before
+                    </p>
                   </div>
                   <div className="h-16 w-24">
                     <ResponsiveContainer width="100%" height="100%">
@@ -171,7 +163,7 @@ console.log("this is admincoursedata",adminCourseData)
                         <Area
                           type="monotone"
                           dataKey="value"
-                          stroke={theme === "dark" ? "#FBBF24" : "#8B5CF6"}   // Dark = Amber, Light = Indigo
+                          stroke={theme === "dark" ? "#FBBF24" : "#8B5CF6"} // Dark = Amber, Light = Indigo
                           fill={theme === "dark" ? "#FBBF24" : "#A78BFA"}
                           fillOpacity={0.2}
                         />
@@ -183,12 +175,18 @@ console.log("this is admincoursedata",adminCourseData)
               {/* Total Revenue*/}
               <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-semibold text-gray-900 dark:text-indigo-500">Total Revenue</h3>
+                  <h3 className="font-semibold text-gray-900 dark:text-indigo-500">
+                    Total Revenue
+                  </h3>
                 </div>
                 <div className="flex items-end justify-between">
                   <div>
-                    <div className="text-2xl font-bold text-gray-900 dark:text-indigo-300">₹{totalRevenue}</div>
-                    <p className="text-sm text-gray-500 dark:text-indigo-500">45% Increase than before</p>
+                    <div className="text-2xl font-bold text-gray-900 dark:text-indigo-300">
+                      ₹{totalRevenue}
+                    </div>
+                    <p className="text-sm text-gray-500 dark:text-indigo-500">
+                      45% Increase than before
+                    </p>
                   </div>
                   <div className="h-16 w-24">
                     <ResponsiveContainer width="100%" height="100%">
@@ -196,7 +194,7 @@ console.log("this is admincoursedata",adminCourseData)
                         <Area
                           type="monotone"
                           dataKey="value"
-                          stroke={theme === "dark" ? "#6366F1" : "#8B5CF6"}   // Dark = Indigo, Light = Indigo
+                          stroke={theme === "dark" ? "#6366F1" : "#8B5CF6"} // Dark = Indigo, Light = Indigo
                           fill={theme === "dark" ? "#6366F1" : "#A78BFA"}
                           fillOpacity={0.2}
                         />
@@ -205,32 +203,17 @@ console.log("this is admincoursedata",adminCourseData)
                   </div>
                 </div>
               </div>
-
-
             </div>
-
-
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Dashboard;
 
-
-
-
-
-
-
-
-
-
-
-
-const AdminDashboardSkeleton=()=> {
+const AdminDashboardSkeleton = () => {
   return (
     <div className="min-h-screen bg-gray-50/50 dark:bg-gray-900 p-8">
       <div className="max-w-7xl mx-auto">
@@ -284,5 +267,5 @@ const AdminDashboardSkeleton=()=> {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
