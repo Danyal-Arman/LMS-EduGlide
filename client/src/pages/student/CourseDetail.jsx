@@ -26,6 +26,7 @@ import {
 import CourseReview from "./CourseReview";
 import RatingCard from "./RatingCard";
 import { Rating } from "@mui/material";
+import DOMPurify from "dompurify";
 
 const CourseDetail = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -127,7 +128,7 @@ const CourseDetail = () => {
     (acc, currentVal) => {
       return acc + currentVal.rating;
     },
-    0
+    0,
   );
 
   const totalRating = courseRatingData?.Ratings?.courseRating.length;
@@ -342,9 +343,12 @@ const CourseDetail = () => {
                 <h3 className="text-2xl font-semibold mb-6 dark:text-gray-100">
                   Course Description
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  {course.description}
-                </p>
+                <div
+                  className="prose max-w-none"
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(course.description),
+                  }}
+                />
               </div>
             </div>
 

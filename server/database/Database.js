@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { courseModel } from "../models/course.model.js";
 
 const ConnectDB = async()=>{
 try{
@@ -10,6 +11,6 @@ catch(error){
    throw error;
 }
 }
-export default ConnectDB; 
+export default ConnectDB;  
 
 // getaddrinfo ENOTFOUND cluster0-shard-00-00.qvb9q.mongodb.net ?

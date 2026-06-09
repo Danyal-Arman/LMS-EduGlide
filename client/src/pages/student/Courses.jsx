@@ -1,27 +1,11 @@
 import CourseCard from "./CourseCard";
-import { useGetPublishedCourseQuery } from "@/features/api/courseApi";
+import { useGetTopCoursesQuery } from "@/features/api/courseApi";
 import CourseCardSkeleton from "@/components/CourseCardSkeleton";
 import { useNavigate } from "react-router-dom";
 
 const Courses = () => {
-  const { data, isLoading } = useGetPublishedCourseQuery();
+  const { data, isLoading } = useGetTopCoursesQuery();
   const navigate = useNavigate();
-
-  const courseWithAverageRatings = data?.publishedCourse.map((course) => {
-    const ratings = course.courseRating || []; // array of ratings
-
-    const totalRatings = ratings.length;
-
-    const sumOfRatings = ratings.reduce((acc, curr) => acc + curr.rating, 0);
-
-    const averageRating =
-      totalRatings === 0 ? 0 : Number((sumOfRatings / totalRatings).toFixed(1));
-
-    return {
-      ...course,
-      averageRating, // ✅ add this new field
-    };
-  });
 
   if (isLoading || !data) {
     return (
@@ -37,6 +21,7 @@ const Courses = () => {
       </div>
     );
   }
+  const topCourses = data.courses;
 
   return (
     <>
@@ -58,8 +43,8 @@ const Courses = () => {
           </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4   gap-5 lg:gap-12 xl:gap-5  px-2 mt-8">
-          {courseWithAverageRatings?.length > 0 ? (
-            courseWithAverageRatings?.map((course) => (
+          {topCourses?.length > 0 ? (
+            topCourses?.map((course) => (
               <CourseCard key={course._id} course={course} />
             ))
           ) : (

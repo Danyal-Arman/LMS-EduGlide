@@ -1,4 +1,3 @@
-
 import express from "express"
 import ConnectDB from "./database/Database.js";
 import dotenv from "dotenv";
@@ -23,7 +22,7 @@ dotenv.config()
 ConnectDB()  
 
 app.use(cors({
-    origin: "https://eduglide-client.onrender.com", 
+    origin: "https://eduglide-client.onrender.com",
     // origin: "http://localhost:5173",
     credentials:true 
 }))

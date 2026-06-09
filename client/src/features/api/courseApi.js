@@ -46,18 +46,18 @@ const courseApi = createApi({
                 method:'GET'
             }),
         }),
+        getTopCourses:builder.query({
+            query:()=>({
+                url:'/top-courses',
+                method:'GET'
+            }),
+        }),
         getCourses:builder.query({
             query:()=>({
                 url:'',
                 method:'GET'
             }),
             providesTags:['RefetchCreatorCourse'],//Used in queries to tag the data they fetch.
-        }),
-        getPublishedCourse:builder.query({
-            query:()=>({
-                url:'/get-published-course',
-                method:'GET'
-            }),
         }),
         editCourse:builder.mutation({
             query:({formData, courseId})=>({ // Accept courseId as a parameter
@@ -110,7 +110,7 @@ const courseApi = createApi({
     })
 });
 
-export const {useCreateCourseMutation, useSearchCourseQuery, useGetCoursesQuery,useEditCourseMutation, useGetCourseByIdQuery,useGetUserCourseRatingByIdQuery,useGetCourseAllReviewsAndRatingsQuery, useCourseReviewMutation, usePublishCourseMutation, useRemoveCourseMutation, useGetPublishedCourseQuery } = courseApi;
+export const {useCreateCourseMutation, useSearchCourseQuery, useGetCoursesQuery, useEditCourseMutation, useGetCourseByIdQuery, useGetUserCourseRatingByIdQuery, useGetCourseAllReviewsAndRatingsQuery, useCourseReviewMutation, usePublishCourseMutation, useGetTopCoursesQuery, useRemoveCourseMutation, useGetPublishedCourseQuery } = courseApi;
 export default courseApi;
 
 
