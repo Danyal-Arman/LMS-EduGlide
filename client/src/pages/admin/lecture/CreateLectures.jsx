@@ -5,13 +5,14 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner';
 import Lecture from './Lecture';
 
+
 const CreateLectures = () => {
     const navigate = useNavigate();
     const params = useParams();
     const courseId = params.courseId;
 
     const [lectureTitle , setLectureTitle] = useState("")
-    const [createLecture, {data, isSuccess, error}] =useCreateLectureMutation(courseId);
+    const [createLecture, {data, isSuccess, error, refetch}] =useCreateLectureMutation(courseId);
     const {data:lectureData, isLoading:LectureIsLoading, error:LectureError} = useGetLectureQuery(courseId, {refetchOnMountOrArgChange:true});
     
 
