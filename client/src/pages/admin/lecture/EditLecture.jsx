@@ -8,8 +8,8 @@ import { Progress } from "@/components/ui/progress"
 import axios from 'axios';
 
 
-const MEDIA_API = "https://eduglide-server.onrender.com/media"
-// const MEDIA_API = "http://localhost:8080/media"
+// const MEDIA_API = "https://eduglide-server.onrender.com/media"
+const MEDIA_API = "http://localhost:8080/media"
 
 const EditLecture = () => {
     const [lectureTitle, setLectureTitle] = useState("");

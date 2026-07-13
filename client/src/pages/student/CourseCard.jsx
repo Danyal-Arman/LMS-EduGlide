@@ -13,7 +13,7 @@ const CourseCard = ({ course }) => {
               alt="Students learning on EduGlide LMS"
               width={1200}
               height={600}
-              className="w-full h-auto object-cover"
+              className="w-full h-auto max-h-40 object-cover"
               src={course?.courseThumbnail}
               loading="lazy"
             />

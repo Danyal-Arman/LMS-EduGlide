@@ -27,6 +27,8 @@ import BecomeInstructor from "./pages/admin/BecomeInstructor";
 import Features from "./pages/student/Features";
 import Footer from "./pages/student/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 function App() {
   const { data: profileData, isLoading, refetch } = useGetUserQuery();
   // if (isLoading)
@@ -171,6 +173,14 @@ function App() {
           <Login />
         </LoggedInUser>
       ),
+    },
+    {
+      path: "forgot-password",
+      element: <ForgotPassword />,
+    },
+    {
+      path: "reset-password/:token",
+      element: <ResetPassword />,
     },
   ]);
 

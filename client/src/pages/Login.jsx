@@ -272,6 +272,18 @@ const Login = () => {
           </div>
 
           {/* Toggle Login/Signup */}
+          {isLogin && (
+            <div className="text-center mt-4">
+              <a
+                href="/forgot-password"
+                className="text-sm font-semibold transition-colors"
+                style={{ color: "hsl(var(--ds-primary)/1)" }}
+              >
+                Forgot password?
+              </a>
+            </div>
+          )}
+
           <button
             type="button"
             onClick={() => setIsLogin(!isLogin)}

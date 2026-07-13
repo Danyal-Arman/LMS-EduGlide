@@ -7,6 +7,7 @@ import lectureRoute from "./routes/lecture.route.js"
 import mediaRoute from "./routes/media.route.js"
 import paymentRoute from "./routes/payment.route.js"
 import courseProgressRoute from "./routes/courseProgress.route.js"
+import authRoute from "./routes/auth.route.js"
 import cookieParser from "cookie-parser";
 import cors from "cors"
 const app = express();
@@ -22,8 +23,8 @@ dotenv.config()
 ConnectDB()  
 
 app.use(cors({
-    origin: "https://eduglide-client.onrender.com",
-    // origin: "http://localhost:5173",
+    origin: "https://eduglide-client.onrender.com", 
+    // origin: "http://localhost:5174",
     credentials:true 
 }))
  
@@ -37,6 +38,7 @@ app.use('/lecture', lectureRoute);
 app.use('/media', mediaRoute) 
 app.use('/purchase', paymentRoute)
 app.use('/course-progress', courseProgressRoute)
+app.use('/api/auth', authRoute)
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {

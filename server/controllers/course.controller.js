@@ -418,7 +418,7 @@ export const getTopCourses = async (req, res) => {
       .lean();
 
 
-    await redis.set("topCourses", JSON.stringify(courses), "EX", 60 * 60 * 24 * 7);    
+    await redis.set("topCourses", JSON.stringify(courses), "EX", 60 * 60 * 24 * 3);    
     
     return res.status(200).json({
       success: true,
