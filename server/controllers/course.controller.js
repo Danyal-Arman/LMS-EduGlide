@@ -402,7 +402,6 @@ export const getTopCourses = async (req, res) => {
     const cachedCourses = await redis.get("topCourses");
 
     if (cachedCourses) {
-        console.log("CACHE HIT")
       return res.status(200).json({
         success: true,
         courses: JSON.parse(cachedCourses),

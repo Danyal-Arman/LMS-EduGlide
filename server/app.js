@@ -23,8 +23,8 @@ dotenv.config()
 ConnectDB()  
 
 app.use(cors({
-    origin: "https://eduglide-client.onrender.com", 
-    // origin: "http://localhost:5174",
+    // origin: "http://localhost:5173", 
+    origin: "https://eduglide-client.onrender.com",
     credentials:true 
 }))
  

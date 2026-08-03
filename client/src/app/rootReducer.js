@@ -9,7 +9,7 @@ import courseProgressApi from "@/features/api/courseProgress";
 
 
 
-const rootReducer = combineReducers({ //combineReducer iss liye use kiya h ke multiple Apis aayengin  filhal to userApi h lekin courseApi wagaira bhi ho sktah                             
+const rootReducer = combineReducers({                      
     [userApi.reducerPath]: userApi.reducer,// This stores the data fetched by the userApi. // abhi ye authApi/userApi ke liye h lekin baad me or bhi ho skta h jaise courseApi ke liye etc
     [courseApi.reducerPath]: courseApi.reducer,
     [lectureApi.reducerPath]: lectureApi.reducer,

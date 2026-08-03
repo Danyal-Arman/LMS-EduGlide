@@ -1,48 +1,40 @@
+import { Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import Hero from "./pages/student/Hero";
-import Courses from "./pages/student/Courses";
 import MainLayout from "./layout/MainLayout";
-import Login from "./pages/Login";
-import MyLearning from "./pages/student/MyLearning";
-import Profile from "./pages/student/Profile";
 import { useGetUserQuery } from "./features/api/authApi";
-import Sidebar from "./pages/admin/Sidebar";
-import Dashboard from "./pages/admin/Dashboard";
-import CourseTable from "./pages/admin/course/CourseTable";
-import CreateCourse from "./pages/admin/course/CreateCourse";
-import EditCourse from "./pages/admin/course/EditCourse";
-import CreateLectures from "./pages/admin/lecture/CreateLectures";
-import EditLecture from "./pages/admin/lecture/EditLecture";
-import CourseDetail from "./pages/student/CourseDetail";
-import CourseProgress from "./pages/student/CourseProgress";
-import SearchPage from "./pages/student/SearchPage";
 import {
   AdminAcess,
   LoggedInUser,
   ProtectedRoute,
 } from "./components/ProtectedRoutes";
-import SecurePurchasedCourse from "./components/SecurePurchasedCourse";
-import BecomeInstructor from "./pages/admin/BecomeInstructor";
-import Features from "./pages/student/Features";
-import Footer from "./pages/student/Footer";
 import ScrollToTop from "./components/ScrollToTop";
-import ForgotPassword from "./pages/ForgotPassword";
-import ResetPassword from "./pages/ResetPassword";
+import LoadingScreen from "./components/LoadingScreen";
+
+const Hero = lazy(() => import("./pages/student/Hero"));
+const Courses = lazy(() => import("./pages/student/Courses"));
+const Login = lazy(() => import("./pages/Login"));
+const MyLearning = lazy(() => import("./pages/student/MyLearning"));
+const Profile = lazy(() => import("./pages/student/Profile"));
+const Sidebar = lazy(() => import("./pages/admin/Sidebar"));
+const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
+const CourseTable = lazy(() => import("./pages/admin/course/CourseTable"));
+const CreateCourse = lazy(() => import("./pages/admin/course/CreateCourse"));
+const EditCourse = lazy(() => import("./pages/admin/course/EditCourse"));
+const CreateLectures = lazy(() => import("./pages/admin/lecture/CreateLectures"));
+const EditLecture = lazy(() => import("./pages/admin/lecture/EditLecture"));
+const CourseDetail = lazy(() => import("./pages/student/CourseDetail"));
+const CourseProgress = lazy(() => import("./pages/student/CourseProgress"));
+const SearchPage = lazy(() => import("./pages/student/SearchPage"));
+const SecurePurchasedCourse = lazy(() => import("./components/SecurePurchasedCourse"));
+const BecomeInstructor = lazy(() => import("./pages/admin/BecomeInstructor"));
+const Features = lazy(() => import("./pages/student/Features"));
+const Footer = lazy(() => import("./pages/student/Footer"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
+
 function App() {
   const { data: profileData, isLoading, refetch } = useGetUserQuery();
-  // if (isLoading)
-  //   return (
-  //     <div className="flex justify-center items-center min-h-screen font-montserrat">
-  //     <div className="flex items-end gap-2">
-  //       <div className="relative h-[37px] w-[15px]">
-  //         <div className="absolute top-0 w-[15px] h-[15px] bg-[#fbae17] rounded-full animate-bounceball"></div>
-  //       </div>
-  //       <div className="text-[#fbae17] ml-2">NOW LOADING </div>
-  //     </div>
-  //   </div>
-
-  //   );
 
   const appRouter = createBrowserRouter([
     {
@@ -58,10 +50,12 @@ function App() {
           path: "/",
           element: (
             <>
-              <Hero />
-              <Features />
-              <Courses />
-              <Footer />
+              <Suspense fallback={<LoadingScreen message="Loading home" />}>
+            <Hero />
+            <Features />
+            <Courses />
+            <Footer />
+          </Suspense>
             </>
           ),
         },
@@ -69,8 +63,10 @@ function App() {
           path: "my-learning",
           element: (
             <ProtectedRoute>
-              <MyLearning data={profileData} isLoading={isLoading} />
-              <Footer />
+              <Suspense fallback={<LoadingScreen message="Loading learning hub" />}>
+                <MyLearning data={profileData} isLoading={isLoading} />
+                <Footer />
+              </Suspense>
             </ProtectedRoute>
           ),
         },
@@ -78,11 +74,13 @@ function App() {
           path: "profile",
           element: (
             <ProtectedRoute>
-              <Profile
-                data={profileData}
-                isLoading={isLoading}
-                refetch={refetch}
-              />
+              <Suspense fallback={<LoadingScreen message="Loading profile" />}>
+                <Profile
+                  data={profileData}
+                  isLoading={isLoading}
+                  refetch={refetch}
+                />
+              </Suspense>
             </ProtectedRoute>
           ),
         },
@@ -90,7 +88,9 @@ function App() {
           path: "instructor",
           element: (
             <ProtectedRoute>
-              <BecomeInstructor />
+              <Suspense fallback={<LoadingScreen message="Preparing instructor area" />}>
+                <BecomeInstructor />
+              </Suspense>
             </ProtectedRoute>
           ),
         },
@@ -98,7 +98,9 @@ function App() {
           path: "search-page",
           element: (
             <ProtectedRoute>
-              <SearchPage />
+              <Suspense fallback={<LoadingScreen message="Searching courses" />}>
+                <SearchPage />
+              </Suspense>
             </ProtectedRoute>
           ),
         },
@@ -106,7 +108,9 @@ function App() {
           path: "course-detail/:courseId",
           element: (
             <ProtectedRoute>
-              <CourseDetail />
+              <Suspense fallback={<LoadingScreen message="Loading course" />}>
+                <CourseDetail />
+              </Suspense>
             </ProtectedRoute>
           ),
         },
@@ -115,7 +119,9 @@ function App() {
           element: (
             <ProtectedRoute>
               <SecurePurchasedCourse>
-                <CourseProgress />
+                <Suspense fallback={<LoadingScreen message="Loading progress" />}>
+                  <CourseProgress />
+                </Suspense>
               </SecurePurchasedCourse>
             </ProtectedRoute>
           ),
@@ -126,33 +132,59 @@ function App() {
           path: "admin",
           element: (
             <AdminAcess>
-              <Sidebar />
+              <Suspense fallback={<LoadingScreen message="Loading admin panel" />}>
+                <Sidebar />
+              </Suspense>
             </AdminAcess>
           ),
           children: [
             {
               path: "dashboard",
-              element: <Dashboard />,
+              element: (
+                <Suspense fallback={<LoadingScreen message="Loading dashboard" />}>
+                  <Dashboard />
+                </Suspense>
+              ),
             },
             {
               path: "course",
-              element: <CourseTable />,
+              element: (
+                <Suspense fallback={<LoadingScreen message="Loading courses" />}>
+                  <CourseTable />
+                </Suspense>
+              ),
             },
             {
               path: "course/create",
-              element: <CreateCourse />,
+              element: (
+                <Suspense fallback={<LoadingScreen message="Loading course editor" />}>
+                  <CreateCourse />
+                </Suspense>
+              ),
             },
             {
               path: "course/:courseId",
-              element: <EditCourse />,
+              element: (
+                <Suspense fallback={<LoadingScreen message="Loading course editor" />}>
+                  <EditCourse />
+                </Suspense>
+              ),
             },
             {
               path: "course/lecture/:courseId",
-              element: <CreateLectures />,
+              element: (
+                <Suspense fallback={<LoadingScreen message="Loading lectures" />}>
+                  <CreateLectures />
+                </Suspense>
+              ),
             },
             {
               path: "course/lecture/:courseId/:lectureId",
-              element: <EditLecture />,
+              element: (
+                <Suspense fallback={<LoadingScreen message="Loading lecture editor" />}>
+                  <EditLecture />
+                </Suspense>
+              ),
             },
           ],
         },
@@ -176,11 +208,19 @@ function App() {
     },
     {
       path: "forgot-password",
-      element: <ForgotPassword />,
+      element: (
+        <Suspense fallback={<LoadingScreen message="Preparing reset" />}>
+          <ForgotPassword />
+        </Suspense>
+      ),
     },
     {
       path: "reset-password/:token",
-      element: <ResetPassword />,
+      element: (
+        <Suspense fallback={<LoadingScreen message="Preparing reset" />}>
+          <ResetPassword />
+        </Suspense>
+      ),
     },
   ]);
 

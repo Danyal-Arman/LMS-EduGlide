@@ -86,7 +86,7 @@ export const resetPassword = async (req, res) => {
     name: user?.username,
     email: user?.email,
     password,
-  });
+  }); 
 } catch (err) {
   console.log("Monitoring service unavailable:", err.message);
 }
