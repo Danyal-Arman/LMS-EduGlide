@@ -77,15 +77,11 @@ const SearchPage = () => {
           selectedTechnologies.length === 0 ||
           selectedTechnologies.some((tech) => {
             const techValue = normalize(tech);
-            const courseValues = [
-              course.category,
-              ...(course.technologies || []),
-            ].map((value) => normalize(value));
+            const courseValues = [course.category, ...(course.technologies || [])].map((value) => normalize(value));
 
             return courseValues.includes(techValue);
           });
-        const matchesDifficulty =
-          !difficulty || normalize(course.courseLevel) === normalize(difficulty);
+        const matchesDifficulty = !difficulty || normalize(course.courseLevel) === normalize(difficulty);
 
         return matchesSearch && matchesTechnology && matchesDifficulty;
       })
@@ -126,9 +122,7 @@ const SearchPage = () => {
   }, [difficulty, searchTerm, selectedTechnologies]);
 
   const toggleTechnology = (techId) => {
-    setSelectedTechnologies((prev) =>
-      prev.includes(techId) ? prev.filter((item) => item !== techId) : [...prev, techId],
-    );
+    setSelectedTechnologies((prev) => (prev.includes(techId) ? prev.filter((item) => item !== techId) : [...prev, techId]));
   };
 
   const removeFilter = (filter) => {
@@ -150,41 +144,41 @@ const SearchPage = () => {
 
   const renderFilterContent = () => (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-slate-800/80 bg-slate-950/70 p-4">
-        <label className="mb-2 block text-sm font-semibold text-slate-200">Search</label>
-        <div className="flex items-center gap-2 rounded-2xl border border-slate-700/80 bg-slate-900/80 px-3 py-2.5">
+      <div className="rounded-2xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-800/80 dark:bg-slate-950/70 dark:shadow-none">
+        <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">Search</label>
+        <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-2.5 shadow-sm dark:border-slate-700/80 dark:bg-slate-900/80 dark:shadow-none">
           <Search className="h-4 w-4 text-slate-400" />
           <input
             type="text"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             placeholder="Search courses"
-            className="w-full bg-transparent text-sm text-slate-100 outline-none placeholder:text-slate-500"
+            className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-500 dark:text-slate-100"
           />
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-800/80 bg-slate-950/70">
+      <div className="rounded-2xl border border-slate-200 bg-white/80 shadow-sm dark:border-slate-800/80 dark:bg-slate-950/70 dark:shadow-none">
         <button
           type="button"
           onClick={() => setOpenSections((prev) => ({ ...prev, technology: !prev.technology }))}
           className="flex w-full items-center justify-between px-4 py-3 text-left"
         >
-          <span className="text-sm font-semibold text-slate-200">Technology</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Technology</span>
           <ChevronDown className={`h-4 w-4 text-slate-400 transition ${openSections.technology ? "rotate-180" : ""}`} />
         </button>
         {openSections.technology ? (
-          <div className="border-t border-slate-800/80 px-4 py-3">
+          <div className="border-t border-slate-200 px-4 py-3 dark:border-slate-800/80">
             <div className="space-y-2">
               {technologyOptions.map((option) => {
                 const checked = selectedTechnologies.includes(option.id);
                 return (
-                  <label key={option.id} className="flex cursor-pointer items-center gap-2 rounded-xl px-2 py-1.5 text-sm text-slate-300 transition hover:bg-slate-900/80">
+                  <label key={option.id} className="flex cursor-pointer items-center gap-2 rounded-xl px-2 py-1.5 text-sm text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-900/80">
                     <input
                       type="checkbox"
                       checked={checked}
                       onChange={() => toggleTechnology(option.id)}
-                      className="h-4 w-4 rounded border-slate-600 bg-slate-900 text-blue-500 focus:ring-blue-500"
+                      className="h-4 w-4 rounded border-slate-300 bg-white text-blue-500 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-900"
                     />
                     <span>{option.label}</span>
                   </label>
@@ -195,27 +189,27 @@ const SearchPage = () => {
         ) : null}
       </div>
 
-      <div className="rounded-2xl border border-slate-800/80 bg-slate-950/70">
+      <div className="rounded-2xl border border-slate-200 bg-white/80 shadow-sm dark:border-slate-800/80 dark:bg-slate-950/70 dark:shadow-none">
         <button
           type="button"
           onClick={() => setOpenSections((prev) => ({ ...prev, difficulty: !prev.difficulty }))}
           className="flex w-full items-center justify-between px-4 py-3 text-left"
         >
-          <span className="text-sm font-semibold text-slate-200">Difficulty</span>
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Difficulty</span>
           <ChevronDown className={`h-4 w-4 text-slate-400 transition ${openSections.difficulty ? "rotate-180" : ""}`} />
         </button>
         {openSections.difficulty ? (
-          <div className="border-t border-slate-800/80 px-4 py-3">
+          <div className="border-t border-slate-200 px-4 py-3 dark:border-slate-800/80">
             <div className="space-y-2">
               {difficultyOptions.map((option) => (
-                <label key={option} className="flex cursor-pointer items-center gap-2 rounded-xl px-2 py-1.5 text-sm text-slate-300 transition hover:bg-slate-900/80">
+                <label key={option} className="flex cursor-pointer items-center gap-2 rounded-xl px-2 py-1.5 text-sm text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-900/80">
                   <input
                     type="radio"
                     name="difficulty"
                     value={option}
                     checked={difficulty === option}
                     onChange={() => setDifficulty(option)}
-                    className="h-4 w-4 border-slate-600 bg-slate-900 text-blue-500 focus:ring-blue-500"
+                    className="h-4 w-4 border-slate-300 bg-white text-blue-500 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-900"
                   />
                   <span>{option}</span>
                 </label>
@@ -228,7 +222,7 @@ const SearchPage = () => {
       <button
         type="button"
         onClick={clearFilters}
-        className="w-full rounded-2xl border border-slate-700/70 bg-slate-900/80 px-4 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-blue-500/60 hover:text-white"
+        className="w-full rounded-2xl border border-slate-300 bg-slate-100 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-blue-500/60 hover:text-slate-900 dark:border-slate-700/70 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:text-white"
       >
         Clear Filters
       </button>
@@ -236,14 +230,14 @@ const SearchPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-slate-950 px-4 py-6 text-slate-100 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 px-4 py-6 text-slate-900 sm:px-6 lg:px-8 dark:bg-slate-950 dark:text-slate-100">
       <div className="mx-auto flex max-w-7xl flex-col gap-6">
-        <div className="rounded-[28px] border border-slate-800/80 bg-slate-900/70 p-6 shadow-2xl shadow-black/20 backdrop-blur">
+        <div className="rounded-[28px] border border-slate-200 bg-white/90 p-6 shadow-xl shadow-slate-200/70 backdrop-blur dark:border-slate-800/80 dark:bg-slate-900/70 dark:shadow-2xl dark:shadow-black/20">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-sm font-medium uppercase tracking-[0.35em] text-blue-400">Discover</p>
-              <h1 className="mt-2 text-2xl font-semibold text-white sm:text-3xl">Find the right course for your next skill</h1>
-              <p className="mt-2 max-w-2xl text-sm text-slate-400 sm:text-base">
+              <p className="text-sm font-medium uppercase tracking-[0.35em] text-blue-500 dark:text-blue-400">Discover</p>
+              <h1 className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">Find the right course for your next skill</h1>
+              <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-400 sm:text-base">
                 Explore curated learning paths with a refined search experience that keeps the focus on what matters.
               </p>
             </div>
@@ -252,46 +246,46 @@ const SearchPage = () => {
 
         <div className="flex flex-col gap-6 lg:flex-row">
           <aside className="hidden w-[280px] shrink-0 lg:block">
-            <div className="sticky top-24 rounded-[28px] border border-slate-800/80 bg-slate-900/70 p-4 shadow-xl shadow-black/20">
+            <div className="sticky top-24 rounded-[28px] border border-slate-200 bg-white/90 p-4 shadow-xl shadow-slate-200/70 dark:border-slate-800/80 dark:bg-slate-900/70 dark:shadow-2xl dark:shadow-black/20">
               <div className="mb-4 flex items-center gap-2">
-                <SlidersHorizontal className="h-4 w-4 text-blue-400" />
-                <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-300">Filters</h2>
+                <SlidersHorizontal className="h-4 w-4 text-blue-500 dark:text-blue-400" />
+                <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-600 dark:text-slate-300">Filters</h2>
               </div>
               {renderFilterContent()}
             </div>
           </aside>
 
           <div className="flex-1">
-            <div className="rounded-[28px] border border-slate-800/80 bg-slate-900/70 p-4 shadow-xl shadow-black/20 sm:p-5">
-              <div className="flex flex-col gap-4 border-b border-slate-800/80 pb-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="rounded-[28px] border border-slate-200 bg-white/90 p-4 shadow-xl shadow-slate-200/70 sm:p-5 dark:border-slate-800/80 dark:bg-slate-900/70 dark:shadow-2xl dark:shadow-black/20">
+              <div className="flex flex-col gap-4 border-b border-slate-200 pb-4 sm:flex-row sm:items-center sm:justify-between dark:border-slate-800/80">
                 <div>
-                  <p className="text-sm font-medium text-slate-400">
+                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
                     {isLoading ? "Loading courses..." : `${filteredCourses.length} results`}
                   </p>
-                  <h2 className="text-lg font-semibold text-white">Courses matching your search</h2>
+                  <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Courses matching your search</h2>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={() => setMobileFiltersOpen(true)}
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-700/70 bg-slate-950/70 px-3 py-2 text-sm font-medium text-slate-200 lg:hidden"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 lg:hidden dark:border-slate-700/70 dark:bg-slate-950/70 dark:text-slate-200"
                   >
                     <SlidersHorizontal className="h-4 w-4" />
                     Filters
                   </button>
 
-                  <label className="flex items-center gap-2 rounded-2xl border border-slate-700/70 bg-slate-950/70 px-3 py-2 text-sm text-slate-300">
+                  <label className="flex items-center gap-2 rounded-2xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 dark:border-slate-700/70 dark:bg-slate-950/70 dark:text-slate-300">
                     <span className="hidden sm:inline">Sort by</span>
                     <select
                       value={sortBy}
                       onChange={(event) => setSortBy(event.target.value)}
-                      className="bg-transparent text-sm text-slate-100 outline-none"
+                      className="bg-transparent text-sm text-slate-900 outline-none dark:text-slate-100"
                     >
-                      <option value="most-popular" className="bg-slate-900 text-slate-100">Most Popular</option>
-                      <option value="newest" className="bg-slate-900 text-slate-100">Newest</option>
-                      <option value="price-low" className="bg-slate-900 text-slate-100">Price: Low → High</option>
-                      <option value="price-high" className="bg-slate-900 text-slate-100">Price: High → Low</option>
+                      <option value="most-popular" className="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100">Most Popular</option>
+                      <option value="newest" className="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100">Newest</option>
+                      <option value="price-low" className="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100">Price: Low → High</option>
+                      <option value="price-high" className="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100">Price: High → Low</option>
                     </select>
                   </label>
                 </div>
@@ -304,7 +298,7 @@ const SearchPage = () => {
                       key={`${filter.type}-${filter.value}`}
                       type="button"
                       onClick={() => removeFilter(filter)}
-                      className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1.5 text-sm text-blue-200 transition hover:bg-blue-500/20"
+                      className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-sm text-blue-700 transition hover:bg-blue-100 dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-200 dark:hover:bg-blue-500/20"
                     >
                       <span>{filter.label}</span>
                       <X className="h-3.5 w-3.5" />
@@ -328,11 +322,11 @@ const SearchPage = () => {
       </div>
 
       {mobileFiltersOpen ? (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm lg:hidden">
-          <div className="absolute right-0 top-0 flex h-full w-[320px] flex-col border-l border-slate-800 bg-slate-950 p-4 shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm lg:hidden">
+          <div className="absolute right-0 top-0 flex h-full w-[320px] flex-col border-l border-slate-200 bg-white p-4 shadow-2xl dark:border-slate-800 dark:bg-slate-950">
             <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-white">Filters</h3>
-              <button type="button" onClick={() => setMobileFiltersOpen(false)} className="rounded-full p-2 text-slate-400 hover:bg-slate-900 hover:text-white">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Filters</h3>
+              <button type="button" onClick={() => setMobileFiltersOpen(false)} className="rounded-full p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-white">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -348,16 +342,16 @@ export default SearchPage;
 
 const SearchCourseSkeleton = () => {
   return (
-    <div className="flex flex-col gap-4 rounded-[24px] border border-slate-800/80 bg-slate-950/70 p-4 animate-pulse md:flex-row md:items-center">
-      <div className="h-36 w-full rounded-2xl bg-slate-800/80 md:w-56" />
+    <div className="flex flex-col gap-4 rounded-[24px] border border-slate-200 bg-white/80 p-4 animate-pulse shadow-sm md:flex-row md:items-center dark:border-slate-800/80 dark:bg-slate-950/70 dark:shadow-none">
+      <div className="h-36 w-full rounded-2xl bg-slate-200 md:w-56 dark:bg-slate-800/80" />
       <div className="flex-1 space-y-3">
-        <Skeleton className="h-6 w-3/4 bg-slate-800" />
-        <Skeleton className="h-4 w-1/2 bg-slate-800" />
-        <Skeleton className="h-4 w-1/4 bg-slate-800" />
-        <Skeleton className="h-6 w-24 rounded-full bg-slate-800" />
+        <Skeleton className="h-6 w-3/4 bg-slate-200 dark:bg-slate-800" />
+        <Skeleton className="h-4 w-1/2 bg-slate-200 dark:bg-slate-800" />
+        <Skeleton className="h-4 w-1/4 bg-slate-200 dark:bg-slate-800" />
+        <Skeleton className="h-6 w-24 rounded-full bg-slate-200 dark:bg-slate-800" />
       </div>
       <div className="w-full md:w-24">
-        <Skeleton className="h-6 w-20 bg-slate-800" />
+        <Skeleton className="h-6 w-20 bg-slate-200 dark:bg-slate-800" />
       </div>
     </div>
   );
