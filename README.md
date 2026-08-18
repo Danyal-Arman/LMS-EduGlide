@@ -10,15 +10,16 @@ This project is scalable, modular, and designed with real-world LMS use cases in
 
 ### **For Students**
 - 🔐 **Secure Authentication** – Register, Login, Logout (JWT-based)  
-- 📚 **Browse & Enroll in Courses** – Filter by categories (single-select filtering)  
+- 📚 **Browse & Enroll in Courses** – Filter by categories 
 - 💳 **Razorpay Integration** – Seamless and secure course purchase  
 - ⭐ **Star Ratings & Reviews** – Leave feedback for purchased courses  
-- 📈 **Progress Tracking** – Track lessons completed and revisit modules  
 
 ### **For Instructors**  
 - 🖋 **Create & Manage Courses** – Add descriptions, modules, lessons, and resources  
 - 💼 **Course Management Dashboard** – Edit, publish, or archive courses  
-- 💰 **Earnings Overview** – Track income from sold courses  
+- 💰 **Earnings Overview** – Track income from sold courses
+- 📈 **Progress Tracking** – Track lessons completed by students 
+
 
 ### **Core Features**
 - 🔄 **Real-time Updates** with optimized APIs  
@@ -34,11 +35,11 @@ This project is scalable, modular, and designed with real-world LMS use cases in
 | Layer | Technology |
 |--------|-----------|
 | **Frontend** | React, Tailwind CSS, Axios, React Router |
-| **Backend** | Node.js, Express.js |
+| **Backend** | Node.js, Express.js, Redis |
 | **Database** | MongoDB (Mongoose ODM) |
 | **Payment** | Razorpay Integration |
 | **Authentication** | JWT (JSON Web Token) |
-| **State Management** | Context API / Redux (if used) |
+| **State Management** | Context API / Redux |
 
 ---
 
