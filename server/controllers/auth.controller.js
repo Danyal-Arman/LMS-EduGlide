@@ -25,7 +25,7 @@ export const forgotPassword = async (req, res) => {
       user.resetPasswordExpires = Date.now() + 15 * 60 * 1000;
       await user.save();
 
-      const resetLink = `${process.env.CLIENT_URL || "http://localhost:5173"}/reset-password/${rawToken}`;
+      const resetLink = `${process.env.CLIENT_URL || "https://eduglide-client.onrender.com"}/reset-password/${rawToken}`;
       await sendPasswordResetEmail({ to: user.email, resetLink });
     }
 
