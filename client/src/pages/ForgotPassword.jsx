@@ -25,7 +25,7 @@ const ForgotPassword = () => {
 
     setIsLoading(true);
     try {
-      const response = await axios.post("http://localhost:8080/api/auth/forgot-password", { email }, { withCredentials: true });
+      const response = await axios.post("https://eduglide-server.onrender.com/api/auth/forgot-password", { email }, { withCredentials: true });
       setSubmitted(true);
       toast.success(response?.data?.message || "Reset link sent");
     } catch (error) {
