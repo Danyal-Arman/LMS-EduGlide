@@ -24,11 +24,6 @@ export const registerUser = async (req, res) => {
       return res.status(400).send({ message: "you already have an account" });
     }
 
-    await axios.post("https://leakwatch.onrender.com/security/analyze-password", {
-      name : username,
-      email : normalizedEmail,
-      password,
-    });
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new userModel({
@@ -84,15 +79,7 @@ export const loginUser = async (req, res) => {
             message: "Wrong email or password!",
         });
     } 
-  try {
-  await axios.post("https://leakwatch.onrender.com/security/analyze-password", {
-    name: user?.username,
-    email: user?.email,
-    password,
-  });
-} catch (err) {
-  console.log("Monitoring service unavailable:", err.message);
-}
+ 
       let token = generateToken(user);
      return res
         .status(200)
