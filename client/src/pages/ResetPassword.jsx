@@ -34,7 +34,7 @@ const ResetPassword = () => {
 
     setIsLoading(true);
     try {
-      const response = await axios.post(`http://localhost:8080/api/auth/reset-password/${token}`, formData, { withCredentials: true });
+      const response = await axios.post(`https://eduglide-server.onrender.com/api/auth/reset-password/${token}`, formData, { withCredentials: true });
       toast.success(response?.data?.message || "Password reset successfully");
       navigate("/login");
     } catch (error) {

@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import MainLayout from "./layout/MainLayout";
+import Login from "./pages/Login";
 import { useGetUserQuery } from "./features/api/authApi";
 import {
   AdminAcess,
@@ -13,7 +14,6 @@ import LoadingScreen from "./components/LoadingScreen";
 
 const Hero = lazy(() => import("./pages/student/Hero"));
 const Courses = lazy(() => import("./pages/student/Courses"));
-const Login = lazy(() => import("./pages/Login"));
 const MyLearning = lazy(() => import("./pages/student/MyLearning"));
 const Profile = lazy(() => import("./pages/student/Profile"));
 const Sidebar = lazy(() => import("./pages/admin/Sidebar"));
@@ -38,9 +38,8 @@ function App() {
   const { data: profileData, isLoading, refetch } = useGetUserQuery();
 
   if(isLoading){
-    return <LoadingScreen message="Checking Session"/>
+    return <LoadingScreen message="Checking session"/>
   }
-  
 
   const appRouter = createBrowserRouter([
     {
@@ -68,7 +67,7 @@ function App() {
         {
           path: "my-learning",
           element: (
-            <ProtectedRoute>
+            <ProtectedRoute isLoading={isLoading}>
               <Suspense fallback={<LoadingScreen message="Loading learning hub" />}>
                 <MyLearning data={profileData} isLoading={isLoading} />
                 <Footer />
@@ -79,7 +78,7 @@ function App() {
         {
           path: "profile",
           element: (
-            <ProtectedRoute>
+            <ProtectedRoute isLoading={isLoading}>
               <Suspense fallback={<LoadingScreen message="Loading profile" />}>
                 <Profile
                   data={profileData}
@@ -93,7 +92,7 @@ function App() {
         {
           path: "instructor",
           element: (
-            <ProtectedRoute>
+            <ProtectedRoute isLoading={isLoading}>
               <Suspense fallback={<LoadingScreen message="Preparing instructor area" />}>
                 <BecomeInstructor />
               </Suspense>
@@ -103,7 +102,7 @@ function App() {
         {
           path: "search-page",
           element: (
-            <ProtectedRoute>
+            <ProtectedRoute isLoading={isLoading}>
               <Suspense fallback={<LoadingScreen message="Searching courses" />}>
                 <SearchPage />
               </Suspense>
@@ -113,7 +112,7 @@ function App() {
         {
           path: "course-detail/:courseId",
           element: (
-            <ProtectedRoute>
+            <ProtectedRoute isLoading={isLoading}>
               <Suspense fallback={<LoadingScreen message="Loading course" />}>
                 <CourseDetail />
               </Suspense>
@@ -123,7 +122,7 @@ function App() {
         {
           path: "course-progress/:courseId",
           element: (
-            <ProtectedRoute>
+            <ProtectedRoute isLoading={isLoading}>
               <SecurePurchasedCourse>
                 <Suspense fallback={<LoadingScreen message="Loading progress" />}>
                   <CourseProgress />
@@ -137,7 +136,7 @@ function App() {
         {
           path: "admin",
           element: (
-            <AdminAcess>
+            <AdminAcess isLoading={isLoading}>
               <Suspense fallback={<LoadingScreen message="Loading admin panel" />}>
                 <Sidebar />
               </Suspense>
@@ -196,22 +195,26 @@ function App() {
         },
       ],
     },
-    {
-      path: "login",
-      element: (
-        <LoggedInUser>
-          <Login />
-        </LoggedInUser>
-      ),
-    },
-    {
-      path: "register",
-      element: (
-        <LoggedInUser>
-          <Login />
-        </LoggedInUser>
-      ),
-    },
+   {
+  path: "login",
+  element: (
+    <Suspense fallback={<LoadingScreen message="Loading login" />}>
+      <LoggedInUser>
+        <Login />
+      </LoggedInUser>
+    </Suspense>
+  ),
+},
+{
+  path: "register",
+  element: (
+    <Suspense fallback={<LoadingScreen message="Loading registration" />}>
+      <LoggedInUser>
+        <Login />
+      </LoggedInUser>
+    </Suspense>
+  ),
+},
     {
       path: "forgot-password",
       element: (
