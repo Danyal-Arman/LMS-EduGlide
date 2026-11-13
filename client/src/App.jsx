@@ -33,8 +33,14 @@ const Footer = lazy(() => import("./pages/student/Footer"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 
+
 function App() {
   const { data: profileData, isLoading, refetch } = useGetUserQuery();
+
+  if(isLoading){
+    return <LoadingScreen message="Checking Session"/>
+  }
+  
 
   const appRouter = createBrowserRouter([
     {
