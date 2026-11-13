@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 
 // const LECTURE_API ="http://localhost:8080/lecture"
-const LECTURE_API ="https://eduglide-server.onrender.com/lecture"
+const LECTURE_API ="https://lms-eduglide.onrender.com/lecture"
 
 
 const lectureApi = createApi({
